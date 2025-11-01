@@ -47,7 +47,7 @@ class ChromeStorePackager {
     this.ensureDir(this.packageDir);
 
     const version = this.getVersion();
-    const zipName = `chrome-store-v${version}.zip`;
+    const zipName = `mouse-gesture-v${version}.zip`;
     const zipPath = path.join(this.packageDir, zipName);
 
     // 如果文件已存在，删除旧文件
