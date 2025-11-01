@@ -10,9 +10,9 @@
 
 ## 🎥 视频演示
 
-[![Mouse Gesture Pilot Demo](https://img.youtube.com/vi/Ver3TTo2IaM/maxresdefault.jpg)](https://www.youtube.com/watch?v=Ver3TTo2IaM)
+[![Mouse Gesture Pilot Demo](https://img.youtube.com/vi/j6URBDnqozA/maxresdefault.jpg)](https://www.youtube.com/watch?v=j6URBDnqozA)
 
-� [**点击观看完整演示视频**](https://www.youtube.com/watch?v=Ver3TTo2IaM)
+📺 [**点击观看完整演示视频**](https://www.youtube.com/watch?v=j6URBDnqozA)
 
 [![Chrome Web Store](https://img.shields.io/badge/Chrome-Web%20Store-blue)](https://chrome.google.com/webstore)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)

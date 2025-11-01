@@ -201,10 +201,19 @@ async function loadExtensionState() {
         if (response) {
             extensionState.enabled = response.enableExecution || false;
             
-            // 从 actionMappings 生成手势列表
+            // 从 actionMappings 和 customGestures 生成手势列表
             extensionState.gestures = [];
+            
+            // 首先加载预设手势
             if (response.actionMappings) {
+                const customPatterns = new Set(
+                    (response.customGestures || []).map(g => g.pattern)
+                );
+                
                 for (const [pattern, action] of Object.entries(response.actionMappings)) {
+                    // 跳过自定义手势，后面单独处理
+                    if (customPatterns.has(pattern)) continue;
+                    
                     const actionInfo = actionDescriptions[action] || {
                         name: action,
                         category: 'other'
@@ -215,15 +224,39 @@ async function loadExtensionState() {
                         name: actionInfo.name,
                         action: action,
                         enabled: true,
+                        custom: false,
                         category: actionInfo.category
                     });
                 }
             }
             
+            // 然后加载自定义手势
             extensionState.customGestures = response.customGestures || [];
+            
+            // 将自定义手势也添加到总列表（用于统一管理）
+            extensionState.customGestures.forEach(customGesture => {
+                const actionInfo = actionDescriptions[customGesture.action] || {
+                    name: customGesture.action,
+                    category: 'custom'
+                };
+                
+                extensionState.gestures.push({
+                    pattern: customGesture.pattern,
+                    name: customGesture.name || actionInfo.name, // 优先使用自定义名称
+                    action: customGesture.action,
+                    enabled: customGesture.enabled !== false,
+                    custom: true,
+                    category: 'custom'
+                });
+            });
         }
         
-        console.log('✅ Extension state loaded:', extensionState);
+        console.log('✅ Extension state loaded:', {
+            enabled: extensionState.enabled,
+            totalGestures: extensionState.gestures.length,
+            customGestures: extensionState.customGestures.length,
+            gestures: extensionState.gestures
+        });
     } catch (error) {
         if (error.message?.includes('Extension context invalidated')) {
             console.log('⚠️ 扩展上下文已失效，页面将自动重新加载');
@@ -411,9 +444,13 @@ function getPageTypeText(type) {
 }
 
 function updateGestureSection() {
+    // 分离预设和自定义手势
+    const presetGestures = extensionState.gestures.filter(g => !g.custom);
+    const customGestures = extensionState.gestures.filter(g => g.custom);
+    
+    // 渲染预设手势到 gestureList
     if (elements.gestureList) {
-        // 保持原有顺序，不按启用/禁用分组
-        elements.gestureList.innerHTML = extensionState.gestures.map(gesture => `
+        const html = presetGestures.map(gesture => `
             <div class="gesture-item ${gesture.enabled ? '' : 'disabled'}">
                 <span class="gesture-pattern" title="${gesture.pattern}">${patternToArrows(gesture.pattern)}</span>
                 <div class="gesture-info">
@@ -427,11 +464,48 @@ function updateGestureSection() {
             </div>
         `).join('');
         
+        elements.gestureList.innerHTML = html;
+        
         // 添加开关事件监听
         const toggleInputs = elements.gestureList.querySelectorAll('.nes-checkbox');
         toggleInputs.forEach(input => {
             input.addEventListener('change', handleGestureToggle);
         });
+    }
+    
+    // 渲染自定义手势到 customGesturesPreview
+    if (elements.customPreview) {
+        if (customGestures.length > 0) {
+            const html = customGestures.map(gesture => `
+                <div class="gesture-item ${gesture.enabled ? '' : 'disabled'}" style="background: rgba(255, 215, 0, 0.05);">
+                    <span class="gesture-pattern" title="${gesture.pattern}">${patternToArrows(gesture.pattern)}</span>
+                    <div class="gesture-info">
+                        <div class="gesture-name" style="color: #ffa500;">⭐ ${gesture.name}</div>
+                        <div class="gesture-action">${gesture.action}</div>
+                    </div>
+                    <label class="gesture-toggle">
+                        <input type="checkbox" ${gesture.enabled ? 'checked' : ''} data-pattern="${gesture.pattern}" class="nes-checkbox">
+                        <span></span>
+                    </label>
+                </div>
+            `).join('');
+            
+            elements.customPreview.innerHTML = html;
+            
+            // 添加开关事件监听
+            const toggleInputs = elements.customPreview.querySelectorAll('.nes-checkbox');
+            toggleInputs.forEach(input => {
+                input.addEventListener('change', handleGestureToggle);
+            });
+        } else {
+            // 没有自定义手势时显示提示
+            elements.customPreview.innerHTML = `
+                <div class="empty-message nes-container is-rounded" style="text-align: center; padding: 20px;">
+                    <p class="nes-text is-disabled">还没有自定义手势</p>
+                    <p class="nes-text is-disabled" style="font-size: 12px; margin-top: 8px;">点击下方按钮创建你的专属手势</p>
+                </div>
+            `;
+        }
     }
 }
 

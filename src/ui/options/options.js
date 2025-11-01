@@ -23,6 +23,7 @@ class MotionOptions {
         this.ctx = null;
         this.startPoint = null;
         this.lastPoint = null;
+        this.patternUpdateScheduled = false; // 用于节流优化
         
         this.init();
     }
@@ -41,28 +42,39 @@ class MotionOptions {
             const response = await chrome.runtime.sendMessage({ type: 'GET_SETTINGS' });
             
             if (response) {
-                // 从 actionMappings 生成手势列表
+                // 动作描述映射
+                const actionNames = {
+                    'goBack': '后退',
+                    'goForward': '前进',
+                    'previousTab': '前一标签',
+                    'nextTab': '下一标签',
+                    'scrollToTop': '滚动到顶部',
+                    'scrollToBottom': '滚动到底部',
+                    'newTab': '新建标签页',
+                    'closeTab': '关闭标签页',
+                    'refreshTab': '刷新页面',
+                    'reopenTab': '重新打开标签页',
+                    'duplicateTab': '复制标签页',
+                    'minimizeWindow': '最小化窗口',
+                    'toggleFullscreen': '全屏切换',
+                    'togglePinTab': '固定标签'
+                };
+                
+                // 从 actionMappings 和 customGestures 生成手势列表
                 const motions = [];
-                if (response.actionMappings) {
-                    // 动作描述映射
-                    const actionNames = {
-                        'goBack': '后退',
-                        'goForward': '前进',
-                        'previousTab': '前一标签',
-                        'nextTab': '下一标签',
-                        'scrollToTop': '滚动到顶部',
-                        'scrollToBottom': '滚动到底部',
-                        'newTab': '新建标签页',
-                        'closeTab': '关闭标签页',
-                        'refreshTab': '刷新页面',
-                        'reopenTab': '重新打开标签页',
-                        'duplicateTab': '复制标签页',
-                        'minimizeWindow': '最小化窗口',
-                        'toggleFullscreen': '全屏切换',
-                        'togglePinTab': '固定标签'
-                    };
-                    
+                
+                // 获取自定义手势的 pattern 集合
+                const customPatterns = new Set(
+                    (response.customGestures || []).map(g => g.pattern)
+                );
+                
+                // 加载预设手势（从 actionMappings 中排除自定义手势）
+                // 注意：actionMappings 是唯一真实来源，不使用本地的 getDefaultMotions()
+                if (response.actionMappings && Object.keys(response.actionMappings).length > 0) {
                     for (const [pattern, action] of Object.entries(response.actionMappings)) {
+                        // 跳过自定义手势，后面单独处理
+                        if (customPatterns.has(pattern)) continue;
+                        
                         motions.push({
                             pattern: pattern,
                             action: action,
@@ -71,15 +83,45 @@ class MotionOptions {
                             custom: false
                         });
                     }
+                } else {
+                    // 只有在 actionMappings 完全不存在时才使用本地默认值作为后备
+                    console.warn('⚠️ actionMappings 为空，使用本地默认手势');
+                    motions.push(...this.getDefaultMotions());
                 }
+                
+                // 加载自定义手势（保留用户定义的名称）
+                if (response.customGestures && response.customGestures.length > 0) {
+                    response.customGestures.forEach(customGesture => {
+                        motions.push({
+                            pattern: customGesture.pattern,
+                            action: customGesture.action,
+                            name: customGesture.name || actionNames[customGesture.action] || customGesture.action,
+                            enabled: customGesture.enabled !== false,
+                            custom: true
+                        });
+                    });
+                }
+                
+                console.log('📖 Options页面加载设置:', {
+                    dataSource: response.actionMappings && Object.keys(response.actionMappings).length > 0 
+                        ? 'actionMappings (来自 Background)' 
+                        : 'getDefaultMotions() (本地后备)',
+                    totalMotions: motions.length,
+                    customCount: motions.filter(m => m.custom).length,
+                    presetCount: motions.filter(m => !m.custom).length,
+                    customGestures: response.customGestures,
+                    actionMappings: response.actionMappings,
+                    allMotions: motions
+                });
                 
                 this.settings = {
                     enabled: response.enableExecution || true,
                     sensitivity: response.patternSensitivity || 30,
                     trailDuration: response.trailDuration || 1200,
-                    motions: motions.length > 0 ? motions : this.getDefaultMotions()
+                    motions: motions
                 };
             } else {
+                console.warn('⚠️ Background 未返回设置，使用本地默认值');
                 // 初始化默认设置
                 this.settings = {
                     enabled: true,
@@ -89,21 +131,46 @@ class MotionOptions {
                 };
             }
         } catch (error) {
-            console.error('加载设置失败:', error);
-            this.settings.motions = this.getDefaultMotions();
+            console.error('❌ 加载设置失败:', error);
+            this.settings = {
+                enabled: true,
+                sensitivity: 30,
+                trailDuration: 1200,
+                motions: this.getDefaultMotions()
+            };
         }
     }
     
     getDefaultMotions() {
+        // 返回所有预设手势，与 background.js 的 defaultConfig.actionMappings 保持一致
         return [
+            // === 页面导航 (最常用) ===
             { pattern: 'L', action: 'goBack', name: '后退', enabled: true, custom: false },
             { pattern: 'R', action: 'goForward', name: '前进', enabled: true, custom: false },
+            
+            // === 页面滚动 ===
             { pattern: 'U', action: 'scrollToTop', name: '滚动到顶部', enabled: true, custom: false },
             { pattern: 'D', action: 'scrollToBottom', name: '滚动到底部', enabled: true, custom: false },
-            { pattern: 'LR', action: 'refreshTab', name: '刷新页面', enabled: true, custom: false },
-            { pattern: 'RL', action: 'reopenTab', name: '重新打开标签页', enabled: true, custom: false },
+            
+            // === 页面刷新 ===
+            { pattern: 'UD', action: 'refreshTab', name: '刷新页面', enabled: true, custom: false },
+            
+            // === 标签页管理 (高频操作) ===
             { pattern: 'DL', action: 'newTab', name: '新建标签页', enabled: true, custom: false },
-            { pattern: 'DR', action: 'closeTab', name: '关闭标签页', enabled: true, custom: false }
+            { pattern: 'DR', action: 'closeTab', name: '关闭标签页', enabled: true, custom: false },
+            { pattern: 'RL', action: 'reopenTab', name: '重新打开标签页', enabled: true, custom: false },
+            { pattern: 'URD', action: 'duplicateTab', name: '复制标签页', enabled: true, custom: false },
+            
+            // === 标签页切换 ===
+            { pattern: 'UL', action: 'previousTab', name: '前一标签', enabled: true, custom: false },
+            { pattern: 'UR', action: 'nextTab', name: '下一标签', enabled: true, custom: false },
+            
+            // === 标签页状态 ===
+            { pattern: 'RUL', action: 'togglePinTab', name: '固定标签', enabled: true, custom: false },
+            
+            // === 窗口管理 ===
+            { pattern: 'DLU', action: 'minimizeWindow', name: '最小化窗口', enabled: true, custom: false },
+            { pattern: 'ULD', action: 'toggleFullscreen', name: '全屏切换', enabled: true, custom: false }
         ];
     }
     
@@ -118,6 +185,33 @@ class MotionOptions {
                 enableHints: true,
                 enableSounds: false
             };
+            
+            // 构建 actionMappings（包括预设和自定义手势）
+            const actionMappings = {};
+            (this.settings.motions || []).forEach(gesture => {
+                if (gesture.enabled) {
+                    actionMappings[gesture.pattern] = gesture.action;
+                }
+            });
+            backgroundSettings.actionMappings = actionMappings;
+            
+            // 单独保存自定义手势列表（用于UI显示和管理）
+            const customGestures = (this.settings.motions || [])
+                .filter(g => g.custom)
+                .map(g => ({
+                    pattern: g.pattern,
+                    name: g.name,
+                    action: g.action,
+                    enabled: g.enabled,
+                    custom: true
+                }));
+            backgroundSettings.customGestures = customGestures;
+            
+            console.log('💾 保存设置到background:', {
+                actionMappings,
+                customGesturesCount: customGestures.length,
+                customGestures
+            });
             
             const response = await chrome.runtime.sendMessage({
                 type: 'SAVE_SETTINGS',
@@ -418,19 +512,32 @@ class MotionOptions {
     
     renderCustomGestures() {
         const container = document.getElementById('customGestures');
-        if (!container) return;
+        if (!container) {
+            console.error('❌ customGestures container not found!');
+            return;
+        }
         
         container.innerHTML = '';
         
         const customGestures = (this.settings.motions || []).filter(g => g.custom);
+        
+        console.log('🎨 renderCustomGestures called:', {
+            totalMotions: this.settings.motions?.length,
+            customGesturesCount: customGestures.length,
+            customGestures: customGestures,
+            allMotions: this.settings.motions
+        });
         
         if (customGestures.length === 0) {
             const emptyMessage = document.createElement('div');
             emptyMessage.className = 'empty-message';
             emptyMessage.innerHTML = '<p>还没有自定义手势。开始录制您的第一个手势吧！</p>';
             container.appendChild(emptyMessage);
+            console.log('📝 Showing empty message');
         } else {
+            console.log('✅ Rendering', customGestures.length, 'custom gestures');
             customGestures.forEach((gesture, index) => {
+                console.log(`  - Gesture ${index}:`, gesture);
                 const gestureElement = this.createGestureElement(gesture, true, index);
                 container.appendChild(gestureElement);
             });
@@ -719,15 +826,30 @@ class MotionOptions {
         this.recordingPath.push({ x, y, timestamp: Date.now() });
         this.lastPoint = { x, y };
         
-        // 实时分析手势并显示箭头
-        if (this.recordingPath.length > 5) {
-            const currentPattern = this.analyzeGesture(this.recordingPath);
-            if (currentPattern && typeof window.GestureArrowDisplay !== 'undefined') {
-                const arrows = window.GestureArrowDisplay.getArrowsForPattern(currentPattern);
-                document.getElementById('recordingPattern').innerHTML = `当前手势: <strong style="font-size: 24px;">${arrows}</strong>`;
-            } else if (currentPattern) {
-                document.getElementById('recordingPattern').innerHTML = `当前手势: ${currentPattern}`;
-            }
+        // 实时分析手势并显示箭头 - 移除延迟条件，立即显示
+        // 使用 requestAnimationFrame 优化性能，避免频繁更新DOM
+        if (!this.patternUpdateScheduled) {
+            this.patternUpdateScheduled = true;
+            requestAnimationFrame(() => {
+                this.patternUpdateScheduled = false;
+                this.updatePatternDisplay();
+            });
+        }
+    }
+    
+    /**
+     * 更新手势模式显示（独立方法，便于优化）
+     * @private
+     */
+    updatePatternDisplay() {
+        if (this.recordingPath.length < 2) return;
+        
+        const currentPattern = this.analyzeGesture(this.recordingPath);
+        if (currentPattern && typeof window.GestureArrowDisplay !== 'undefined') {
+            const arrows = window.GestureArrowDisplay.getArrowsForPattern(currentPattern);
+            document.getElementById('recordingPattern').innerHTML = `当前手势: <strong style="font-size: 24px;">${arrows}</strong>`;
+        } else if (currentPattern) {
+            document.getElementById('recordingPattern').innerHTML = `当前手势: ${currentPattern}`;
         }
     }
     
