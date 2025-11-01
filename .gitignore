@@ -54,15 +54,24 @@ temp/
 *.pem
 private_key.pem
 
-# 打包文件
+# Chrome Web Store 相关（敏感信息）
+# 如果有发布相关的敏感文档，取消注释
 packages/
 chore/
+
+# 打包文件
 *.zip
 
 # 备份文件
 *.bak
 *.backup
 *~
+
+# 安全相关
+# 如果项目中有包含敏感信息的配置文件，在此添加
+secrets/
+.secrets
+credentials.json
 
 # 测试文件
 test-results/

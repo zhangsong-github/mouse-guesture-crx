@@ -1,0 +1,8 @@
+blank_issues_enabled: true
+contact_links:
+  - name: 💬 讨论区
+    url: https://github.com/zhangsong-github/mouse-guesture-crx/discussions
+    about: 提出问题、分享想法或参与讨论
+  - name: 📧 联系作者
+    url: mailto:zhangsongai3@gmail.com
+    about: 通过邮件联系项目维护者
