@@ -1,10 +1,22 @@
-# Mouse Gesture Pilot 🖱️
+# Mouse Gesture Pilot 🖱## 📸 功能展示
 
+### ### 设置页面
+完整的配置选项，灵活调整手势行为
+
+![设置页面](./docs/images/settings-page.png)
+
+## 🚀 快速开始板
 一个功能强大的 Chrome 鼠标手势扩展，支持可视化轨迹效果。
+
+## 🎥 视频演示
+
+[![Mouse Gesture Pilot Demo](https://img.youtube.com/vi/Ver3TTo2IaM/maxresdefault.jpg)](https://www.youtube.com/watch?v=Ver3TTo2IaM)
+
+� [**点击观看完整演示视频**](https://www.youtube.com/watch?v=Ver3TTo2IaM)
 
 [![Chrome Web Store](https://img.shields.io/badge/Chrome-Web%20Store-blue)](https://chrome.google.com/webstore)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![Version](https://img.shields.io/badge/version-1.1.1-green.svg)](https://github.com/zhangsong-github/chrome-guesture-extension)
+[![Version](https://img.shields.io/badge/version-1.1.1-green.svg)](https://github.com/zhangsong-github/mouse-guesture-crx)
 
 ## ✨ 特性
 
@@ -16,13 +28,35 @@
 - 🔧 **完整的配置选项** - 灵活调整灵敏度和行为
 - 🌍 **多语言支持** - 中文/英文界面
 
-## 🚀 快速开始
+## � 功能展示
+
+### 侧边栏控制面板
+快速查看和管理您的鼠标手势设置
+
+![侧边栏控制面板](./docs/images/sidepanel-control.png)
+
+### 页面手势操作
+在任意网页中使用鼠标手势，实时显示轨迹效果
+
+![在页面中使用手势](./docs/images/gesture-in-action.png)
+
+### 自定义手势
+创建您专属的手势映射
+
+![自定义手势](./docs/images/custom-gesture.png)
+
+### 设置页面
+完整的配置选项，灵活调整手势行为
+
+![设置页面](./设置页面1.png)
+
+## �🚀 快速开始
 
 ### 从源码安装
 
 1. **克隆仓库**
    ```bash
-   git clone https://github.com/zhangsong-github/chrome-guesture-extension.git
+   git clone https://github.com/zhangsong-github/mouse-guesture-crx.git
    cd chrome-guesture-extension
    ```
 
@@ -72,6 +106,10 @@
 2. 松开鼠标右键完成手势
 3. 扩展会识别并执行对应动作
 
+如下图所示，在页面中使用手势时会显示实时轨迹：
+
+![手势操作演示](./docs/images/gesture-in-action.png)
+
 ### 自定义手势
 1. 点击扩展图标打开侧边栏
 2. 进入"选项"页面
@@ -79,10 +117,18 @@
 4. 绘制您的手势并选择动作
 5. 保存即可使用
 
+自定义手势界面：
+
+![自定义手势界面](./docs/images/custom-gesture.png)
+
 ### 配置选项
 - **识别灵敏度**: 调整手势识别的精确度
 - **轨迹持续时间**: 设置轨迹显示时长
 - **启用/禁用**: 快速切换手势功能
+
+通过侧边栏控制面板可以快速访问所有功能：
+
+![侧边栏面板](./docs/images/sidepanel-control.png)
 
 ## 🛠️ 开发
 
@@ -164,4 +210,4 @@ npm run validate
 
 ---
 
-**注意**: 此扩展正在积极开发中。如果遇到问题，请在 [Issues](https://github.com/zhangsong-github/chrome-guesture-extension/issues) 页面报告。
+**注意**: 此扩展正在积极开发中。如果遇到问题，请在 [Issues](https://github.com/zhangsong-github/mouse-guesture-crx/issues) 页面报告。

@@ -194,7 +194,7 @@ This extension is **open source**. You can:
 - Audit the code yourself
 - Report issues or concerns
 
-**GitHub Repository:** https://github.com/zhangsong-github/chrome-guesture-extension
+**GitHub Repository:** https://github.com/zhangsong-github/mouse-guesture-crx
 
 ---
 
@@ -203,7 +203,7 @@ This extension is **open source**. You can:
 If you have questions or concerns about this privacy policy:
 
 - **Email:** zhangsongai3@gmail.com
-- **GitHub Issues:** https://github.com/zhangsong-github/chrome-guesture-extension/issues
+- **GitHub Issues:** https://github.com/zhangsong-github/mouse-guesture-crx/issues
 
 We typically respond within 24-48 hours.
 
