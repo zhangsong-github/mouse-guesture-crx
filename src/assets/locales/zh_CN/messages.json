@@ -1,0 +1,38 @@
+{
+  "extName": {
+    "message": "鼠标手势扩展"
+  },
+  "extDescription": {
+    "message": "一个功能强大的鼠标手势扩展，具有可视化轨迹效果"
+  },
+  "settings": {
+    "message": "设置"
+  },
+  "enable": {
+    "message": "启用"
+  },
+  "disable": {
+    "message": "禁用"
+  },
+  "save": {
+    "message": "保存"
+  },
+  "cancel": {
+    "message": "取消"
+  },
+  "gestures": {
+    "message": "手势"
+  },
+  "customGestures": {
+    "message": "自定义手势"
+  },
+  "trailSettings": {
+    "message": "轨迹设置"
+  },
+  "trailColor": {
+    "message": "轨迹颜色"
+  },
+  "trailWidth": {
+    "message": "轨迹宽度"
+  }
+}

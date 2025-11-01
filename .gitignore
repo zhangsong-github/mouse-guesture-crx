@@ -1,0 +1,75 @@
+# 依赖文件
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+package-lock.json
+yarn.lock
+
+# 构建输出
+dist/
+packages/
+*.zip
+
+# 环境变量
+.env
+.env.local
+.env.*.local
+
+# 编辑器
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# 操作系统
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# 日志文件
+logs/
+*.log
+
+# 运行时数据
+pids/
+*.pid
+*.seed
+
+# 覆盖率报告
+coverage/
+.nyc_output/
+
+# 临时文件
+tmp/
+temp/
+
+# Chrome扩展临时文件
+*.crx
+*.pem
+private_key.pem
+
+# 打包文件
+packages/
+chore/
+*.zip
+
+# 备份文件
+*.bak
+*.backup
+*~
+
+# 测试文件
+test-results/
+playwright-report/
+
+# 缓存
+.cache/
+.parcel-cache/
+.next/
+.nuxt/

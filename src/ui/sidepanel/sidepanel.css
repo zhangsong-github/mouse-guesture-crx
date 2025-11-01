@@ -1,0 +1,454 @@
+/* Chrome Extension Side Panel 样式 - 像素风格版本 */
+
+/* 引入 Press Start 2P 字体以增强像素风格 */
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+
+:root {
+  /* 像素风主题色彩 - 复古调色板 */
+  --pixel-primary: #209cee;
+  --pixel-primary-dark: #0077c2;
+  --pixel-success: #92cc41;
+  --pixel-warning: #f7d51d;
+  --pixel-danger: #e76e55;
+  --pixel-info: #76c7c0;
+  
+  /* 背景色 - 深色像素风 */
+  --pixel-bg-dark: #212529;
+  --pixel-bg-medium: #343a40;
+  --pixel-bg-light: #495057;
+  
+  /* 文字色彩 */
+  --pixel-text-light: #ffffff;
+  --pixel-text-muted: #adb5bd;
+  --pixel-text-dark: #212529;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Press Start 2P', 'Courier New', monospace !important;
+  background-color: var(--pixel-bg-dark) !important;
+  color: var(--pixel-text-light);
+  line-height: 1.8;
+  overflow-x: hidden;
+  width: 100%;
+  min-height: 100vh;
+  font-size: 10px;
+  image-rendering: pixelated;
+}
+
+#app {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  width: 100%;
+  padding: 12px;
+  background-color: var(--pixel-bg-dark);
+}
+
+/* 顶部标题栏 - 像素风格 */
+.header {
+  margin-bottom: 16px;
+}
+
+.header-title {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.logo {
+  font-size: 28px;
+  animation: pixel-bounce 2s ease-in-out infinite;
+  filter: drop-shadow(2px 2px 0px rgba(0,0,0,0.5));
+}
+
+@keyframes pixel-bounce {
+  0%, 100% { transform: translateY(0) scale(1); }
+  50% { transform: translateY(-4px) scale(1.1); }
+}
+
+.title-text h1 {
+  font-size: 14px;
+  margin-bottom: 4px;
+  text-shadow: 2px 2px 0px rgba(0,0,0,0.5);
+}
+
+.version {
+  font-size: 8px;
+  opacity: 0.7;
+}
+
+.header-controls {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.btn-icon {
+  min-width: 40px;
+  height: 40px;
+  padding: 8px;
+}
+
+.toggle-label {
+  font-size: 8px;
+  margin-left: 4px;
+}
+
+/* 主内容区域 */
+#mainContent {
+  flex: 1;
+  padding: 8px;
+}
+
+.section {
+  margin-bottom: 16px !important;
+}
+
+.section-header h3 {
+  font-size: 12px;
+  margin-bottom: 12px;
+  text-shadow: 2px 2px 0px rgba(0,0,0,0.5);
+}
+
+/* 手势列表样式 */
+.gesture-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.gesture-item {
+  background-color: var(--pixel-bg-medium);
+  border: 3px solid var(--pixel-primary);
+  padding: 12px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  transition: all 0.2s;
+  min-width: 0; /* 允许flex项目缩小 */
+}
+
+.gesture-item:hover {
+  border-color: var(--pixel-warning);
+  transform: translateX(4px);
+}
+
+.gesture-pattern {
+  font-size: 20px;
+  min-width: 60px;
+  flex-shrink: 0; /* 不允许缩小 */
+  text-align: center;
+  text-shadow: 2px 2px 0px rgba(0,0,0,0.5);
+}
+
+.gesture-info {
+  flex: 1;
+  min-width: 0; /* 允许缩小 */
+  overflow: hidden; /* 隐藏溢出内容 */
+}
+
+.gesture-name {
+  font-size: 10px;
+  margin-bottom: 4px;
+  font-weight: bold;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.gesture-action {
+  font-size: 8px;
+  opacity: 0.7;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.gesture-toggle {
+  flex-shrink: 0; /* 开关不允许缩小 */
+  margin-left: 0; /* 覆盖 NES.css 的默认 margin */
+}
+
+/* NES checkbox 在深色主题下的颜色调整 */
+.nes-checkbox + span::before {
+  color: var(--pixel-text) !important;
+}
+
+.nes-checkbox:checked + span::before {
+  color: var(--pixel-success) !important;
+}
+
+/* 切换开关样式 */
+.toggle {
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 30px;
+}
+
+.toggle input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: var(--pixel-danger);
+  border: 3px solid #000;
+  transition: 0.3s;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 18px;
+  width: 18px;
+  left: 3px;
+  bottom: 3px;
+  background-color: white;
+  border: 2px solid #000;
+  transition: 0.3s;
+}
+
+input:checked + .slider {
+  background-color: var(--pixel-success);
+}
+
+input:checked + .slider:before {
+  transform: translateX(24px);
+}
+
+/* 快速操作网格 */
+.quick-actions-grid {
+  display: grid;
+  gap: 12px;
+}
+
+.quick-action-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 12px !important;
+  font-size: 10px !important;
+}
+
+.action-icon {
+  font-size: 12px;
+}
+
+.action-text {
+  font-size: 8px;
+}
+
+/* 自定义手势预览 */
+.custom-gestures-preview {
+  min-height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  background-color: var(--pixel-bg-light);
+  border: 2px dashed var(--pixel-text-muted);
+  margin-bottom: 12px;
+  font-size: 8px;
+  text-align: center;
+  color: var(--pixel-text-muted);
+}
+
+.section-footer {
+  margin-top: 12px;
+}
+
+.full-width {
+  width: 100%;
+}
+
+/* 禁用状态消息 */
+.disabled-content,
+.unsupported-content {
+  text-align: center;
+  padding: 24px;
+}
+
+.disabled-icon,
+.unsupported-icon {
+  font-size: 48px;
+  margin-bottom: 16px;
+  animation: pixel-bounce 2s ease-in-out infinite;
+}
+
+.disabled-content h3,
+.unsupported-content h3 {
+  font-size: 12px;
+  margin-bottom: 12px;
+}
+
+.disabled-content p,
+.unsupported-content p {
+  font-size: 8px;
+  margin-bottom: 16px;
+  line-height: 1.6;
+}
+
+/* 帮助部分样式 */
+.help-content {
+  padding: 16px;
+}
+
+.help-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.help-header h3 {
+  font-size: 12px;
+}
+
+.help-sections {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.help-category {
+  padding: 12px !important;
+  margin-bottom: 12px;
+}
+
+.help-category h4 {
+  font-size: 10px;
+  margin-bottom: 12px;
+}
+
+.help-item {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+  margin-bottom: 12px;
+  font-size: 8px;
+  line-height: 1.6;
+}
+
+.help-step {
+  min-width: 24px;
+  font-size: 10px;
+}
+
+.help-icon {
+  font-size: 16px;
+  min-width: 24px;
+}
+
+.help-text {
+  flex: 1;
+}
+
+.help-text strong {
+  display: block;
+  margin-bottom: 4px;
+}
+
+/* 不支持页面提示样式 */
+.unsupported-tips {
+  margin: 16px 0;
+  padding: 12px !important;
+}
+
+.unsupported-tips h4 {
+  font-size: 10px;
+  margin-bottom: 8px;
+}
+
+.unsupported-tips ul {
+  text-align: left;
+  font-size: 8px;
+  line-height: 1.8;
+}
+
+.unsupported-tips li {
+  margin-bottom: 8px;
+}
+
+.unsupported-actions {
+  margin-top: 16px;
+}
+
+/* NES.css 特定覆盖 */
+.nes-btn {
+  font-size: 10px !important;
+  padding: 8px 16px !important;
+  min-height: 40px;
+}
+
+.nes-container.is-dark {
+  background-color: var(--pixel-bg-medium) !important;
+  color: var(--pixel-text-light) !important;
+}
+
+.nes-container.is-centered {
+  text-align: center;
+}
+
+.nes-text {
+  line-height: 1.8 !important;
+}
+
+.nes-list.is-disc {
+  list-style-position: inside;
+}
+
+/* 滚动条样式 - 像素风格 */
+::-webkit-scrollbar {
+  width: 12px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--pixel-bg-dark);
+  border: 2px solid var(--pixel-bg-medium);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--pixel-primary);
+  border: 2px solid var(--pixel-bg-dark);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--pixel-primary-dark);
+}
+
+/* 响应式调整 */
+@media (max-width: 400px) {
+  body {
+    font-size: 8px;
+  }
+  
+  .logo {
+    font-size: 24px;
+  }
+  
+  .title-text h1 {
+    font-size: 12px;
+  }
+  
+  .nes-btn {
+    font-size: 8px !important;
+    padding: 6px 12px !important;
+  }
+}

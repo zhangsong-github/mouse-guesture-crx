@@ -1,0 +1,38 @@
+{
+  "extName": {
+    "message": "Mouse Gesture Extension"
+  },
+  "extDescription": {
+    "message": "A powerful mouse gesture extension with visual trail effects"
+  },
+  "settings": {
+    "message": "Settings"
+  },
+  "enable": {
+    "message": "Enable"
+  },
+  "disable": {
+    "message": "Disable"
+  },
+  "save": {
+    "message": "Save"
+  },
+  "cancel": {
+    "message": "Cancel"
+  },
+  "gestures": {
+    "message": "Gestures"
+  },
+  "customGestures": {
+    "message": "Custom Gestures"
+  },
+  "trailSettings": {
+    "message": "Trail Settings"
+  },
+  "trailColor": {
+    "message": "Trail Color"
+  },
+  "trailWidth": {
+    "message": "Trail Width"
+  }
+}
