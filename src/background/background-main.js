@@ -15,6 +15,7 @@ class MotionSettingsManager {
             enableHints: true,
             enableSounds: false,
             enableExecution: true,
+            customGestures: [], // 自定义手势列表
             actionMappings: {
                 // === 页面导航 (最常用) ===
                 'L': 'goBack',              // 后退
