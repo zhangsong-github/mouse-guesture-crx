@@ -1,38 +1,391 @@
 {
   "extName": {
-    "message": "鼠标手势扩展"
+    "message": "Mouse Gesture Pilot"
   },
   "extDescription": {
     "message": "一个功能强大的鼠标手势扩展，具有可视化轨迹效果"
   },
-  "settings": {
-    "message": "设置"
+  
+  "optionsTitle": {
+    "message": "手势扩展 - 设置"
   },
-  "enable": {
-    "message": "启用"
+  "optionsSubtitle": {
+    "message": "配置您的鼠标手势，提升浏览体验"
   },
-  "disable": {
-    "message": "禁用"
-  },
-  "save": {
-    "message": "保存"
-  },
-  "cancel": {
-    "message": "取消"
-  },
-  "gestures": {
-    "message": "手势"
+  
+  "presetGestures": {
+    "message": "预设手势"
   },
   "customGestures": {
     "message": "自定义手势"
   },
-  "trailSettings": {
-    "message": "轨迹设置"
+  "customGesturesDescription": {
+    "message": "通过实际鼠标操作录制手势，支持复杂的手势组合"
   },
-  "trailColor": {
-    "message": "轨迹颜色"
+  "recordNewGesture": {
+    "message": "录制新手势"
   },
-  "trailWidth": {
-    "message": "轨迹宽度"
+  
+  "gestureRecording": {
+    "message": "手势录制"
+  },
+  "recordingReady": {
+    "message": "准备录制手势"
+  },
+  "recordingInstructions": {
+    "message": "按住鼠标右键并移动鼠标绘制手势轨迹"
+  },
+  "recordingInProgress": {
+    "message": "正在录制手势..."
+  },
+  "recordingContinue": {
+    "message": "继续移动鼠标绘制手势，松开右键完成录制"
+  },
+  "recordingComplete": {
+    "message": "录制完成"
+  },
+  "recordingCompleteInstructions": {
+    "message": "请设置手势名称和执行动作，然后保存"
+  },
+  
+  "cancel": {
+    "message": "取消"
+  },
+  "clear": {
+    "message": "清除"
+  },
+  "save": {
+    "message": "保存"
+  },
+  "saveGesture": {
+    "message": "保存手势"
+  },
+  "delete": {
+    "message": "删除"
+  },
+  
+  "gestureName": {
+    "message": "手势名称："
+  },
+  "gestureNamePlaceholder": {
+    "message": "输入手势名称"
+  },
+  "gestureAction": {
+    "message": "执行动作："
+  },
+  "selectAction": {
+    "message": "选择动作"
+  },
+  
+  "gestureSettings": {
+    "message": "手势设置"
+  },
+  "gestureSensitivity": {
+    "message": "手势敏感度："
+  },
+  "trailDuration": {
+    "message": "轨迹持续时间："
+  },
+  
+  "actionGoBack": {
+    "message": "后退"
+  },
+  "actionGoForward": {
+    "message": "前进"
+  },
+  "actionScrollToTop": {
+    "message": "滚动到顶部"
+  },
+  "actionScrollToBottom": {
+    "message": "滚动到底部"
+  },
+  "actionPreviousTab": {
+    "message": "前一标签"
+  },
+  "actionNextTab": {
+    "message": "下一标签"
+  },
+  "actionNewTab": {
+    "message": "新建标签页"
+  },
+  "actionCloseTab": {
+    "message": "关闭标签页"
+  },
+  "actionRefreshTab": {
+    "message": "刷新页面"
+  },
+  "actionReopenTab": {
+    "message": "重新打开标签页"
+  },
+  "actionDuplicateTab": {
+    "message": "复制标签页"
+  },
+  "actionTogglePinTab": {
+    "message": "固定标签"
+  },
+  "actionMinimizeWindow": {
+    "message": "最小化窗口"
+  },
+  "actionToggleFullscreen": {
+    "message": "全屏切换"
+  },
+  
+  "footerVersion": {
+    "message": "手势扩展 v1.1.1 | 制作精良的鼠标手势工具"
+  },
+  "footerTip": {
+    "message": "💡 提示：复杂手势可以组合多个方向，如 ↑→↓ 或 ←→←"
+  },
+  
+  "sidepanelTitle": {
+    "message": "手势扩展"
+  },
+  "sidepanelVersion": {
+    "message": "v1.1.1"
+  },
+  "enabled": {
+    "message": "已启用"
+  },
+  "disabled": {
+    "message": "已禁用"
+  },
+  
+  "quickActions": {
+    "message": "快速操作"
+  },
+  "settingsCenter": {
+    "message": "设置中心"
+  },
+  "manageCustomGestures": {
+    "message": "管理自定义手势"
+  },
+  
+  "extensionDisabled": {
+    "message": "手势扩展已禁用"
+  },
+  "extensionDisabledMessage": {
+    "message": "点击上方开关启用扩展功能"
+  },
+  "enableNow": {
+    "message": "立即启用"
+  },
+  
+  "helpGuide": {
+    "message": "使用说明"
+  },
+  "basicOperations": {
+    "message": "基本操作"
+  },
+  "helpStep1": {
+    "message": "启动手势:"
+  },
+  "helpStep1Detail": {
+    "message": "按住鼠标右键"
+  },
+  "helpStep2": {
+    "message": "绘制轨迹:"
+  },
+  "helpStep2Detail": {
+    "message": "保持右键按住，移动鼠标绘制手势"
+  },
+  "helpStep3": {
+    "message": "执行动作:"
+  },
+  "helpStep3Detail": {
+    "message": "释放右键，系统识别并执行对应动作"
+  },
+  
+  "visualFeedback": {
+    "message": "视觉反馈"
+  },
+  "visualTrail": {
+    "message": "蓝色轨迹线显示鼠标移动路径"
+  },
+  "visualPattern": {
+    "message": "屏幕中央显示当前识别的手势模式"
+  },
+  "visualSuccess": {
+    "message": "成功执行后显示动作名称"
+  },
+  
+  "advancedFeatures": {
+    "message": "高级功能"
+  },
+  "customGestureFeature": {
+    "message": "自定义手势:"
+  },
+  "customGestureFeatureDetail": {
+    "message": "在设置中心录制专属手势"
+  },
+  "sensitivityFeature": {
+    "message": "敏感度调节:"
+  },
+  "sensitivityFeatureDetail": {
+    "message": "根据使用习惯调整识别敏感度"
+  },
+  "statisticsFeature": {
+    "message": "使用统计:"
+  },
+  "statisticsFeatureDetail": {
+    "message": "查看手势使用频率和偏好"
+  },
+  
+  "unsupportedPage": {
+    "message": "当前页面不支持"
+  },
+  "unsupportedPageReason": {
+    "message": "Chrome内置页面不支持手势扩展"
+  },
+  "supportedPageTypes": {
+    "message": "支持的页面类型:"
+  },
+  "supportedTypeWeb": {
+    "message": "普通网页 (http/https)"
+  },
+  "supportedTypeLocal": {
+    "message": "本地HTML文件"
+  },
+  "supportedTypeIntranet": {
+    "message": "内网页面"
+  },
+  "openSettings": {
+    "message": "打开设置中心"
+  },
+  
+  "languageSettings": {
+    "message": "语言设置"
+  },
+  "language": {
+    "message": "语言："
+  },
+  "languageEnglish": {
+    "message": "English"
+  },
+  "languageChinese": {
+    "message": "简体中文"
+  },
+  "languageGerman": {
+    "message": "Deutsch"
+  },
+  "languageJapanese": {
+    "message": "日本語"
+  },
+  
+  "messageSaved": {
+    "message": "设置已保存"
+  },
+  "messageGestureSaved": {
+    "message": "手势已保存"
+  },
+  "messageGestureDeleted": {
+    "message": "手势已删除"
+  },
+  "messageGestureEnabled": {
+    "message": "手势已启用"
+  },
+  "messageGestureDisabled": {
+    "message": "手势已禁用"
+  },
+  "messageSaveFailed": {
+    "message": "保存失败"
+  },
+  "messageGestureTooShort": {
+    "message": "手势太短，请录制更长的手势"
+  },
+  "messageGestureUnrecognized": {
+    "message": "无法识别手势，请重新录制"
+  },
+  "messageEnterGestureName": {
+    "message": "请输入手势名称"
+  },
+  "messageSelectAction": {
+    "message": "请选择动作"
+  },
+  "messageGestureExists": {
+    "message": "手势模式已存在"
+  },
+  "confirmDelete": {
+    "message": "确定要删除这个手势吗？"
+  },
+  
+  "noCustomGestures": {
+    "message": "还没有自定义手势"
+  },
+  "noCustomGesturesHint": {
+    "message": "点击下方按钮创建你的专属手势"
+  },
+  "actionExecuted": {
+    "message": "操作已执行"
+  },
+  "currentMotion": {
+    "message": "当前运动"
+  },
+  "drawGesture": {
+    "message": "拖动绘制运动"
+  },
+  "dragToCancelMotion": {
+    "message": "拖动到页面边缘取消运动"
+  },
+  "gestureDisabledSidepanel": {
+    "message": "鼠标手势功能已禁用（请关闭扩展侧边栏）"
+  },
+  
+  "gestureGoBack": {
+    "message": "后退"
+  },
+  "gestureGoForward": {
+    "message": "前进"
+  },
+  "gestureScrollToTop": {
+    "message": "滚动到顶部"
+  },
+  "gestureScrollToBottom": {
+    "message": "滚动到底部"
+  },
+  "gestureRefreshTab": {
+    "message": "刷新页面"
+  },
+  "gestureNewTab": {
+    "message": "新建标签页"
+  },
+  "gestureCloseTab": {
+    "message": "关闭标签页"
+  },
+  "gestureReopenTab": {
+    "message": "重新打开标签页"
+  },
+  "gestureDuplicateTab": {
+    "message": "复制标签页"
+  },
+  "gesturePreviousTab": {
+    "message": "前一标签"
+  },
+  "gestureNextTab": {
+    "message": "下一标签"
+  },
+  "gestureTogglePinTab": {
+    "message": "固定标签"
+  },
+  "gestureMinimizeWindow": {
+    "message": "最小化窗口"
+  },
+  "gestureToggleFullscreen": {
+    "message": "全屏切换"
+  },
+  
+  "motionExecutionDisabled": {
+    "message": "运动执行功能已被禁用"
+  },
+  "patternNotFound": {
+    "message": "未找到模式的动作映射"
+  },
+  "motionExecuted": {
+    "message": "已执行运动"
+  },
+  "executionFailed": {
+    "message": "执行失败"
+  },
+  "processingFailed": {
+    "message": "处理失败"
   }
 }

@@ -510,3 +510,102 @@ input:checked + #toggleLabel {
 .gesture-item:hover {
   animation: pixel-glow 1.5s ease-in-out infinite;
 }
+
+/* 语言选择器样式 */
+.language-selector {
+  min-width: 200px;
+  padding: 12px;
+  margin-bottom: 8px;
+}
+
+.language-selector label {
+  display: block;
+  margin-bottom: 8px;
+  font-size: 8px;
+}
+
+.language-selector .nes-select {
+  margin-top: 8px;
+}
+
+.language-selector select {
+  font-family: 'Press Start 2P', 'Courier New', monospace;
+  font-size: 8px;
+  width: 100%;
+}
+
+/* 长文本处理 */
+.text-ellipsis {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.text-wrap {
+  word-wrap: break-word;
+  word-break: break-word;
+  overflow-wrap: break-word;
+}
+
+.text-multiline {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* 手势名称和动作文本溢出处理 */
+.gesture-name {
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.gesture-action {
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* 响应式长文本 */
+@media (max-width: 768px) {
+  .gesture-name,
+  .gesture-action {
+    font-size: 7px;
+  }
+  
+  .language-selector {
+    min-width: 150px;
+  }
+}
+
+/* 确保标题和说明文本可以换行 */
+.header-subtitle p,
+.custom-gestures-header p,
+.recording-instructions p {
+  white-space: normal;
+  word-wrap: break-word;
+}
+
+/* 选项文本处理 */
+select option {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-width: 100%;
+}
+
+/* 按钮文本处理 */
+button {
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+button span {
+  display: inline-block;
+  vertical-align: middle;
+}
+

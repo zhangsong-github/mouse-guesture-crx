@@ -452,3 +452,87 @@ input:checked + .slider:before {
     padding: 6px 12px !important;
   }
 }
+
+/* 语言选择器样式 */
+#languageSelectorContainer {
+  margin-bottom: 12px;
+}
+
+.language-selector {
+  padding: 8px;
+  min-width: 100%;
+}
+
+.language-selector label {
+  display: block;
+  margin-bottom: 6px;
+  font-size: 8px;
+}
+
+.language-selector .nes-select {
+  margin-top: 6px;
+}
+
+.language-selector select {
+  font-family: 'Press Start 2P', 'Courier New', monospace;
+  font-size: 8px;
+  width: 100%;
+}
+
+/* 长文本处理样式 */
+.text-ellipsis {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.text-wrap {
+  word-wrap: break-word;
+  word-break: break-word;
+  overflow-wrap: break-word;
+  white-space: normal;
+}
+
+.text-multiline {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* 确保帮助文本可以换行 */
+.help-text {
+  white-space: normal;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+}
+
+/* 确保按钮文本可以换行（对于长文本） */
+.quick-action-btn .action-text {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
+}
+
+/* 防止长选项文本溢出 */
+.nes-select select option {
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* 自定义手势预览区域文本换行 */
+.custom-gestures-preview {
+  white-space: normal;
+  word-wrap: break-word;
+}
+
+/* 确保说明文本可以正常换行 */
+.disabled-content p,
+.unsupported-content p,
+.header-subtitle p {
+  white-space: normal;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+}
+

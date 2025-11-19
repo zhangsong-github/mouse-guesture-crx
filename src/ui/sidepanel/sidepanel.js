@@ -3,6 +3,11 @@
  * 鼠标手势扩展侧边栏功能实现
  */
 
+// 调试：检查依赖是否加载
+console.log('🔍 Sidepanel.js loading...');
+console.log('  - i18nManager available:', typeof window.i18nManager !== 'undefined');
+console.log('  - GestureArrowDisplay available:', typeof window.GestureArrowDisplay !== 'undefined');
+
 // 状态管理
 let extensionState = {
     enabled: false,
@@ -21,22 +26,55 @@ let extensionState = {
     }
 };
 
-// 动作描述映射
-const actionDescriptions = {
-    'goBack': { name: '后退', category: 'navigation' },
-    'goForward': { name: '前进', category: 'navigation' },
-    'previousTab': { name: '前一标签', category: 'tab' },
-    'nextTab': { name: '下一标签', category: 'tab' },
-    'scrollToTop': { name: '页面顶部', category: 'scroll' },
-    'scrollToBottom': { name: '页面底部', category: 'scroll' },
-    'newTab': { name: '新标签页', category: 'tab' },
-    'closeTab': { name: '关闭标签', category: 'tab' },
-    'refreshTab': { name: '刷新页面', category: 'page' },
-    'reopenTab': { name: '重新打开', category: 'tab' },
-    'duplicateTab': { name: '复制标签', category: 'tab' },
-    'minimizeWindow': { name: '最小化窗口', category: 'window' },
-    'toggleFullscreen': { name: '全屏切换', category: 'view' },
-    'togglePinTab': { name: '固定标签', category: 'tab' }
+// 动作描述映射 - 使用函数以支持多语言
+const getActionDescription = (action) => {
+    const i18nKey = `action${action.charAt(0).toUpperCase()}${action.slice(1)}`;
+    
+    if (window.i18nManager && window.i18nManager.messages[i18nKey]) {
+        return {
+            name: window.i18nManager.getMessage(i18nKey),
+            category: getCategoryForAction(action)
+        };
+    }
+    
+    // 后备方案
+    const actionDescriptions = {
+        'goBack': { name: '后退', category: 'navigation' },
+        'goForward': { name: '前进', category: 'navigation' },
+        'previousTab': { name: '前一标签', category: 'tab' },
+        'nextTab': { name: '下一标签', category: 'tab' },
+        'scrollToTop': { name: '页面顶部', category: 'scroll' },
+        'scrollToBottom': { name: '页面底部', category: 'scroll' },
+        'newTab': { name: '新标签页', category: 'tab' },
+        'closeTab': { name: '关闭标签', category: 'tab' },
+        'refreshTab': { name: '刷新页面', category: 'page' },
+        'reopenTab': { name: '重新打开', category: 'tab' },
+        'duplicateTab': { name: '复制标签', category: 'tab' },
+        'minimizeWindow': { name: '最小化窗口', category: 'window' },
+        'toggleFullscreen': { name: '全屏切换', category: 'view' },
+        'togglePinTab': { name: '固定标签', category: 'tab' }
+    };
+    return actionDescriptions[action] || { name: action, category: 'other' };
+};
+
+const getCategoryForAction = (action) => {
+    const categoryMap = {
+        'goBack': 'navigation',
+        'goForward': 'navigation',
+        'previousTab': 'tab',
+        'nextTab': 'tab',
+        'scrollToTop': 'scroll',
+        'scrollToBottom': 'scroll',
+        'newTab': 'tab',
+        'closeTab': 'tab',
+        'refreshTab': 'page',
+        'reopenTab': 'tab',
+        'duplicateTab': 'tab',
+        'minimizeWindow': 'window',
+        'toggleFullscreen': 'view',
+        'togglePinTab': 'tab'
+    };
+    return categoryMap[action] || 'other';
 };
 
 // 将手势模式转换为箭头符号（使用像素风格的粗箭头）
@@ -60,6 +98,9 @@ document.addEventListener('DOMContentLoaded', initialize);
 async function initialize() {
     console.log('Side Panel initializing...');
     
+    // 初始化多语言系统
+    await initializeI18n();
+    
     // 获取DOM元素
     cacheElements();
     
@@ -79,6 +120,63 @@ async function initialize() {
     startPeriodicUpdates();
     
     console.log('Side Panel initialized successfully');
+}
+
+async function initializeI18n() {
+    try {
+        // 等待 i18nManager 加载（最多等待2秒）
+        let attempts = 0;
+        while (!window.i18nManager && attempts < 20) {
+            await new Promise(resolve => setTimeout(resolve, 100));
+            attempts++;
+        }
+        
+        // 初始化 i18n manager
+        if (window.i18nManager) {
+            await window.i18nManager.initialize();
+            
+            // 创建语言选择器
+            const container = document.getElementById('languageSelectorContainer');
+            if (container) {
+                window.i18nManager.createLanguageSelector(container, (locale) => {
+                    console.log('Language changed to:', locale);
+                    // 重新初始化页面文本（更新所有 data-i18n 元素）
+                    window.i18nManager.initializePageTexts();
+                    // 重新渲染动态内容
+                    renderUI();
+                    showNotification(window.i18nManager.getMessage('messageSaved'), 'success');
+                });
+            }
+            
+            // 初始化页面文本
+            window.i18nManager.initializePageTexts();
+            
+            // 更新HTML lang属性
+            document.documentElement.lang = window.i18nManager.getHtmlLangCode(
+                window.i18nManager.getCurrentLocale()
+            );
+            
+            console.log('✅ I18n initialized for sidepanel');
+        } else {
+            console.warn('⚠️ i18nManager not available after waiting');
+            console.log('Available window properties:', Object.keys(window));
+        }
+    } catch (error) {
+        console.error('❌ Failed to initialize i18n:', error);
+    }
+}
+
+/**
+ * 获取国际化文本的辅助方法
+ * @param {string} key - 消息键
+ * @param {string} fallback - 后备文本
+ * @returns {string} 翻译后的文本
+ */
+function getI18nMessage(key, fallback = '') {
+    if (window.i18nManager) {
+        return window.i18nManager.getMessage(key) || fallback;
+    }
+    return fallback;
 }
 
 function cacheElements() {
@@ -214,10 +312,7 @@ async function loadExtensionState() {
                     // 跳过自定义手势，后面单独处理
                     if (customPatterns.has(pattern)) continue;
                     
-                    const actionInfo = actionDescriptions[action] || {
-                        name: action,
-                        category: 'other'
-                    };
+                    const actionInfo = getActionDescription(action);
                     
                     extensionState.gestures.push({
                         pattern: pattern,
@@ -235,10 +330,7 @@ async function loadExtensionState() {
             
             // 将自定义手势也添加到总列表（用于统一管理）
             extensionState.customGestures.forEach(customGesture => {
-                const actionInfo = actionDescriptions[customGesture.action] || {
-                    name: customGesture.action,
-                    category: 'custom'
-                };
+                const actionInfo = getActionDescription(customGesture.action);
                 
                 extensionState.gestures.push({
                     pattern: customGesture.pattern,
@@ -369,7 +461,8 @@ function updateHeader() {
     // 更新toggle标签
     const toggleLabel = document.getElementById('toggleLabel');
     if (toggleLabel) {
-        toggleLabel.textContent = extensionState.enabled ? '已启用' : '已禁用';
+        const statusKey = extensionState.enabled ? 'enabled' : 'disabled';
+        toggleLabel.textContent = getI18nMessage(statusKey, extensionState.enabled ? '已启用' : '已禁用');
     }
 }
 
@@ -499,10 +592,13 @@ function updateGestureSection() {
             });
         } else {
             // 没有自定义手势时显示提示
+            const noGesturesMsg = getI18nMessage('noCustomGestures') || '还没有自定义手势';
+            const noGesturesHint = getI18nMessage('noCustomGesturesHint') || '点击下方按钮创建你的专属手势';
+            
             elements.customPreview.innerHTML = `
                 <div class="empty-message nes-container is-rounded" style="text-align: center; padding: 20px;">
-                    <p class="nes-text is-disabled">还没有自定义手势</p>
-                    <p class="nes-text is-disabled" style="font-size: 12px; margin-top: 8px;">点击下方按钮创建你的专属手势</p>
+                    <p class="nes-text is-disabled">${noGesturesMsg}</p>
+                    <p class="nes-text is-disabled" style="font-size: 12px; margin-top: 8px;">${noGesturesHint}</p>
                 </div>
             `;
         }
@@ -686,7 +782,8 @@ async function executeQuickAction(action) {
         await saveExtensionState();
         updateStatsSection();
         
-        showNotification('操作已执行', 'success');
+        const actionExecutedMsg = getI18nMessage('actionExecuted') || '操作已执行';
+        showNotification(actionExecutedMsg, 'success');
     } catch (error) {
         console.error('Failed to execute quick action:', error);
         showNotification('操作执行失败', 'error');

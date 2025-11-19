@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>手势扩展 - 设置</title>
+    <title data-i18n="optionsTitle">手势扩展 - 设置</title>
     <link rel="stylesheet" href="../../assets/libs/nes.css/nes.min.css">
     <link rel="stylesheet" href="../../assets/styles/options.css">
 </head>
@@ -11,10 +11,13 @@
     <div class="header">
         <div class="header-content">
             <div class="header-text">
-                <h1 class="nes-text is-primary">🖱️ 手势扩展设置</h1>
+                <h1 class="nes-text is-primary" data-i18n-html="optionsTitle">🖱️ 手势扩展设置</h1>
                 <div class="header-subtitle">
-                    <p class="nes-text">配置您的鼠标手势，提升浏览体验</p>
+                    <p class="nes-text" data-i18n="optionsSubtitle">配置您的鼠标手势，提升浏览体验</p>
                 </div>
+            </div>
+            <div class="header-controls">
+                <div id="languageSelectorContainer"></div>
             </div>
         </div>
     </div>
@@ -22,7 +25,7 @@
     <div class="container">
         <!-- 预设手势管理 -->
         <section class="section nes-container is-rounded is-dark">
-            <h2 class="nes-text is-success">📋 预设手势</h2>
+            <h2 class="nes-text is-success" data-i18n-html="presetGestures">📋 预设手势</h2>
             <div class="preset-gestures" id="presetGestures">
                 <!-- 预设手势列表将在这里动态生成 -->
             </div>
@@ -30,11 +33,11 @@
 
         <!-- 自定义手势管理 -->
         <section class="section nes-container is-rounded is-dark">
-            <h2 class="nes-text is-warning">🎨 自定义手势</h2>
+            <h2 class="nes-text is-warning" data-i18n-html="customGestures">🎨 自定义手势</h2>
             <div class="custom-gestures-header">
-                <p class="nes-text">通过实际鼠标操作录制手势，支持复杂的手势组合</p>
+                <p class="nes-text" data-i18n="customGesturesDescription">通过实际鼠标操作录制手势，支持复杂的手势组合</p>
                 <button class="nes-btn is-warning" id="addGestureBtn">
-                    <span>📝</span> 录制新手势
+                    <span>📝</span> <span data-i18n="recordNewGesture">录制新手势</span>
                 </button>
             </div>
             
@@ -45,46 +48,46 @@
 
         <!-- 手势录制区域 -->
         <section class="section nes-container is-rounded is-dark" id="recordingSection" style="display: none;">
-            <h2 class="nes-text is-error">🎯 手势录制</h2>
+            <h2 class="nes-text is-error" data-i18n-html="gestureRecording">🎯 手势录制</h2>
             <div class="recording-area">
                 <div class="recording-canvas-container nes-container is-rounded">
                     <canvas id="gestureCanvas"></canvas>
                     <div class="recording-instructions">
-                        <h3 id="recordingTitle" class="nes-text">准备录制手势</h3>
-                        <p id="recordingInstructions" class="nes-text is-disabled">按住鼠标右键并移动鼠标绘制手势轨迹</p>
+                        <h3 id="recordingTitle" class="nes-text" data-i18n="recordingReady">准备录制手势</h3>
+                        <p id="recordingInstructions" class="nes-text is-disabled" data-i18n="recordingInstructions">按住鼠标右键并移动鼠标绘制手势轨迹</p>
                         <div class="recording-pattern nes-text is-primary" id="recordingPattern"></div>
                     </div>
                 </div>
                 
                 <div class="recording-controls">
-                    <button class="nes-btn" id="cancelRecording">取消</button>
-                    <button class="nes-btn is-error" id="clearRecording">清除</button>
-                    <button class="nes-btn is-success" id="saveGesture" disabled>保存手势</button>
+                    <button class="nes-btn" id="cancelRecording" data-i18n="cancel">取消</button>
+                    <button class="nes-btn is-error" id="clearRecording" data-i18n="clear">清除</button>
+                    <button class="nes-btn is-success" id="saveGesture" disabled data-i18n="saveGesture">保存手势</button>
                 </div>
                 
                 <div class="gesture-config nes-container is-rounded" id="gestureConfig" style="display: none;">
                     <div class="nes-field form-group">
-                        <label for="gestureName" class="nes-text">手势名称：</label>
-                        <input type="text" id="gestureName" class="nes-input" placeholder="输入手势名称">
+                        <label for="gestureName" class="nes-text" data-i18n="gestureName">手势名称：</label>
+                        <input type="text" id="gestureName" class="nes-input" data-i18n-placeholder="gestureNamePlaceholder" placeholder="输入手势名称">
                     </div>
                     <div class="nes-select form-group">
-                        <label for="gestureAction" class="nes-text">执行动作：</label>
+                        <label for="gestureAction" class="nes-text" data-i18n="gestureAction">执行动作：</label>
                         <select id="gestureAction" required>
-                            <option value="">选择动作</option>
-                            <option value="goBack">后退</option>
-                            <option value="goForward">前进</option>
-                            <option value="scrollToTop">滚动到顶部</option>
-                            <option value="scrollToBottom">滚动到底部</option>
-                            <option value="previousTab">前一标签</option>
-                            <option value="nextTab">下一标签</option>
-                            <option value="newTab">新建标签页</option>
-                            <option value="closeTab">关闭标签页</option>
-                            <option value="refreshTab">刷新页面</option>
-                            <option value="reopenTab">重新打开标签页</option>
-                            <option value="duplicateTab">复制标签页</option>
-                            <option value="togglePinTab">固定标签</option>
-                            <option value="minimizeWindow">最小化窗口</option>
-                            <option value="toggleFullscreen">全屏切换</option>
+                            <option value="" data-i18n="selectAction">选择动作</option>
+                            <option value="goBack" data-i18n="actionGoBack">后退</option>
+                            <option value="goForward" data-i18n="actionGoForward">前进</option>
+                            <option value="scrollToTop" data-i18n="actionScrollToTop">滚动到顶部</option>
+                            <option value="scrollToBottom" data-i18n="actionScrollToBottom">滚动到底部</option>
+                            <option value="previousTab" data-i18n="actionPreviousTab">前一标签</option>
+                            <option value="nextTab" data-i18n="actionNextTab">下一标签</option>
+                            <option value="newTab" data-i18n="actionNewTab">新建标签页</option>
+                            <option value="closeTab" data-i18n="actionCloseTab">关闭标签页</option>
+                            <option value="refreshTab" data-i18n="actionRefreshTab">刷新页面</option>
+                            <option value="reopenTab" data-i18n="actionReopenTab">重新打开标签页</option>
+                            <option value="duplicateTab" data-i18n="actionDuplicateTab">复制标签页</option>
+                            <option value="togglePinTab" data-i18n="actionTogglePinTab">固定标签</option>
+                            <option value="minimizeWindow" data-i18n="actionMinimizeWindow">最小化窗口</option>
+                            <option value="toggleFullscreen" data-i18n="actionToggleFullscreen">全屏切换</option>
                         </select>
                     </div>
                 </div>
@@ -93,15 +96,15 @@
 
         <!-- 手势敏感度设置 -->
         <section class="section nes-container is-rounded is-dark">
-            <h2 class="nes-text is-primary">⚙️ 手势设置</h2>
+            <h2 class="nes-text is-primary" data-i18n-html="gestureSettings">⚙️ 手势设置</h2>
             <div class="settings-grid">
                 <div class="setting-item">
-                    <label for="sensitivity" class="nes-text">手势敏感度：</label>
+                    <label for="sensitivity" class="nes-text" data-i18n="gestureSensitivity">手势敏感度：</label>
                     <input type="range" id="sensitivity" min="10" max="50" value="30">
                     <span id="sensitivityValue" class="nes-text is-primary">30px</span>
                 </div>
                 <div class="setting-item">
-                    <label for="trailDuration" class="nes-text">轨迹持续时间：</label>
+                    <label for="trailDuration" class="nes-text" data-i18n="trailDuration">轨迹持续时间：</label>
                     <input type="range" id="trailDuration" min="500" max="3000" value="1200" step="100">
                     <span id="trailDurationValue" class="nes-text is-primary">1.2s</span>
                 </div>
@@ -111,11 +114,12 @@
 
     <div class="footer nes-container is-dark">
         <div class="footer-info" style="margin: auto;">
-            <p class="nes-text">手势扩展 v1.1.1 | 制作精良的鼠标手势工具</p>
-            <p class="nes-text is-disabled">💡 提示：复杂手势可以组合多个方向，如 ↑→↓ 或 ←→←</p>
+            <p class="nes-text" data-i18n="footerVersion">手势扩展 v1.1.1 | 制作精良的鼠标手势工具</p>
+            <p class="nes-text is-disabled" data-i18n="footerTip">💡 提示：复杂手势可以组合多个方向，如 ↑→↓ 或 ←→←</p>
         </div>
     </div>
 
+    <script src="../../utils/i18n-manager.js"></script>
     <script src="../../js/gesture-arrows.js"></script>
     <script src="options.js"></script>
 </body>

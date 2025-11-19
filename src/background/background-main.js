@@ -571,10 +571,11 @@ async function handleMotionExecution(request, sender) {
         
         if (!settings.enableExecution) {
             console.log('运动执行已禁用');
+            const disabledMsg = chrome.i18n ? chrome.i18n.getMessage('motionExecutionDisabled') : '运动执行功能已被禁用';
             return { 
                 success: false, 
                 error: 'Execution disabled',
-                message: '运动执行功能已被禁用' 
+                message: disabledMsg
             };
         }
         
@@ -583,10 +584,11 @@ async function handleMotionExecution(request, sender) {
         
         if (!actionName) {
             console.log(`未找到模式映射: ${pattern}`);
+            const notFoundMsg = chrome.i18n ? chrome.i18n.getMessage('patternNotFound') : '未找到模式的动作映射';
             return { 
                 success: false, 
                 error: 'No mapping found',
-                message: `未找到模式 "${pattern}" 的动作映射` 
+                message: `${notFoundMsg}: "${pattern}"` 
             };
         }
         
@@ -595,30 +597,33 @@ async function handleMotionExecution(request, sender) {
         
         if (result.success) {
             console.log(`运动执行成功: ${pattern} -> ${actionName}`);
+            const executedMsg = chrome.i18n ? chrome.i18n.getMessage('motionExecuted') : '已执行运动';
             return {
                 success: true,
                 pattern,
                 action: actionName,
-                message: `已执行运动: ${pattern} -> ${actionName}`
+                message: `${executedMsg}: ${pattern} -> ${actionName}`
             };
         } else {
             console.error(`运动执行失败: ${pattern} -> ${actionName}`, result.error);
+            const failedMsg = chrome.i18n ? chrome.i18n.getMessage('executionFailed') : '执行失败';
             return {
                 success: false,
                 pattern,
                 action: actionName,
                 error: result.error,
-                message: `执行失败: ${result.error}`
+                message: `${failedMsg}: ${result.error}`
             };
         }
         
     } catch (error) {
         console.error('运动执行处理错误:', error);
+        const processingFailedMsg = chrome.i18n ? chrome.i18n.getMessage('processingFailed') : '处理失败';
         return {
             success: false,
             pattern,
             error: error.message,
-            message: `处理失败: ${error.message}`
+            message: `${processingFailedMsg}: ${error.message}`
         };
     }
 }

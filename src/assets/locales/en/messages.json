@@ -1,38 +1,391 @@
 {
   "extName": {
-    "message": "Mouse Gesture Extension"
+    "message": "Mouse Gesture Pilot"
   },
   "extDescription": {
     "message": "A powerful mouse gesture extension with visual trail effects"
   },
-  "settings": {
-    "message": "Settings"
+  
+  "optionsTitle": {
+    "message": "Mouse Gestures - Settings"
   },
-  "enable": {
-    "message": "Enable"
+  "optionsSubtitle": {
+    "message": "Configure your mouse gestures to enhance your browsing experience"
   },
-  "disable": {
-    "message": "Disable"
-  },
-  "save": {
-    "message": "Save"
-  },
-  "cancel": {
-    "message": "Cancel"
-  },
-  "gestures": {
-    "message": "Gestures"
+  
+  "presetGestures": {
+    "message": "Preset Gestures"
   },
   "customGestures": {
     "message": "Custom Gestures"
   },
-  "trailSettings": {
-    "message": "Trail Settings"
+  "customGesturesDescription": {
+    "message": "Record gestures through actual mouse operations, supports complex gesture combinations"
   },
-  "trailColor": {
-    "message": "Trail Color"
+  "recordNewGesture": {
+    "message": "Record New Gesture"
   },
-  "trailWidth": {
-    "message": "Trail Width"
+  
+  "gestureRecording": {
+    "message": "Gesture Recording"
+  },
+  "recordingReady": {
+    "message": "Ready to Record Gesture"
+  },
+  "recordingInstructions": {
+    "message": "Hold down the right mouse button and move the mouse to draw the gesture trail"
+  },
+  "recordingInProgress": {
+    "message": "Recording Gesture..."
+  },
+  "recordingContinue": {
+    "message": "Continue moving the mouse to draw the gesture, release the right button to complete recording"
+  },
+  "recordingComplete": {
+    "message": "Recording Complete"
+  },
+  "recordingCompleteInstructions": {
+    "message": "Please set the gesture name and action, then save"
+  },
+  
+  "cancel": {
+    "message": "Cancel"
+  },
+  "clear": {
+    "message": "Clear"
+  },
+  "save": {
+    "message": "Save"
+  },
+  "saveGesture": {
+    "message": "Save Gesture"
+  },
+  "delete": {
+    "message": "Delete"
+  },
+  
+  "gestureName": {
+    "message": "Gesture Name:"
+  },
+  "gestureNamePlaceholder": {
+    "message": "Enter gesture name"
+  },
+  "gestureAction": {
+    "message": "Execute Action:"
+  },
+  "selectAction": {
+    "message": "Select Action"
+  },
+  
+  "gestureSettings": {
+    "message": "Gesture Settings"
+  },
+  "gestureSensitivity": {
+    "message": "Gesture Sensitivity:"
+  },
+  "trailDuration": {
+    "message": "Trail Duration:"
+  },
+  
+  "actionGoBack": {
+    "message": "Go Back"
+  },
+  "actionGoForward": {
+    "message": "Go Forward"
+  },
+  "actionScrollToTop": {
+    "message": "Scroll to Top"
+  },
+  "actionScrollToBottom": {
+    "message": "Scroll to Bottom"
+  },
+  "actionPreviousTab": {
+    "message": "Previous Tab"
+  },
+  "actionNextTab": {
+    "message": "Next Tab"
+  },
+  "actionNewTab": {
+    "message": "New Tab"
+  },
+  "actionCloseTab": {
+    "message": "Close Tab"
+  },
+  "actionRefreshTab": {
+    "message": "Refresh Page"
+  },
+  "actionReopenTab": {
+    "message": "Reopen Tab"
+  },
+  "actionDuplicateTab": {
+    "message": "Duplicate Tab"
+  },
+  "actionTogglePinTab": {
+    "message": "Pin Tab"
+  },
+  "actionMinimizeWindow": {
+    "message": "Minimize Window"
+  },
+  "actionToggleFullscreen": {
+    "message": "Toggle Fullscreen"
+  },
+  
+  "footerVersion": {
+    "message": "Mouse Gestures v1.1.1 | Professional Mouse Gesture Tool"
+  },
+  "footerTip": {
+    "message": "💡 Tip: Complex gestures can combine multiple directions, such as ↑→↓ or ←→←"
+  },
+  
+  "sidepanelTitle": {
+    "message": "Mouse Gestures"
+  },
+  "sidepanelVersion": {
+    "message": "v1.1.1"
+  },
+  "enabled": {
+    "message": "Enabled"
+  },
+  "disabled": {
+    "message": "Disabled"
+  },
+  
+  "quickActions": {
+    "message": "Quick Actions"
+  },
+  "settingsCenter": {
+    "message": "Settings Center"
+  },
+  "manageCustomGestures": {
+    "message": "Manage Custom Gestures"
+  },
+  
+  "extensionDisabled": {
+    "message": "Extension Disabled"
+  },
+  "extensionDisabledMessage": {
+    "message": "Click the switch above to enable extension features"
+  },
+  "enableNow": {
+    "message": "Enable Now"
+  },
+  
+  "helpGuide": {
+    "message": "User Guide"
+  },
+  "basicOperations": {
+    "message": "Basic Operations"
+  },
+  "helpStep1": {
+    "message": "Start Gesture:"
+  },
+  "helpStep1Detail": {
+    "message": "Hold down the right mouse button"
+  },
+  "helpStep2": {
+    "message": "Draw Trail:"
+  },
+  "helpStep2Detail": {
+    "message": "Keep the right button pressed, move the mouse to draw the gesture"
+  },
+  "helpStep3": {
+    "message": "Execute Action:"
+  },
+  "helpStep3Detail": {
+    "message": "Release the right button, system recognizes and executes the corresponding action"
+  },
+  
+  "visualFeedback": {
+    "message": "Visual Feedback"
+  },
+  "visualTrail": {
+    "message": "Blue trail line shows mouse movement path"
+  },
+  "visualPattern": {
+    "message": "Screen center displays currently recognized gesture pattern"
+  },
+  "visualSuccess": {
+    "message": "Action name displayed after successful execution"
+  },
+  
+  "advancedFeatures": {
+    "message": "Advanced Features"
+  },
+  "customGestureFeature": {
+    "message": "Custom Gestures:"
+  },
+  "customGestureFeatureDetail": {
+    "message": "Record exclusive gestures in settings center"
+  },
+  "sensitivityFeature": {
+    "message": "Sensitivity Adjustment:"
+  },
+  "sensitivityFeatureDetail": {
+    "message": "Adjust recognition sensitivity according to usage habits"
+  },
+  "statisticsFeature": {
+    "message": "Usage Statistics:"
+  },
+  "statisticsFeatureDetail": {
+    "message": "View gesture usage frequency and preferences"
+  },
+  
+  "unsupportedPage": {
+    "message": "Current Page Not Supported"
+  },
+  "unsupportedPageReason": {
+    "message": "Chrome built-in pages do not support gesture extension"
+  },
+  "supportedPageTypes": {
+    "message": "Supported Page Types:"
+  },
+  "supportedTypeWeb": {
+    "message": "Regular web pages (http/https)"
+  },
+  "supportedTypeLocal": {
+    "message": "Local HTML files"
+  },
+  "supportedTypeIntranet": {
+    "message": "Intranet pages"
+  },
+  "openSettings": {
+    "message": "Open Settings Center"
+  },
+  
+  "languageSettings": {
+    "message": "Language Settings"
+  },
+  "language": {
+    "message": "Language:"
+  },
+  "languageEnglish": {
+    "message": "English"
+  },
+  "languageChinese": {
+    "message": "简体中文"
+  },
+  "languageGerman": {
+    "message": "Deutsch"
+  },
+  "languageJapanese": {
+    "message": "日本語"
+  },
+  
+  "messageSaved": {
+    "message": "Settings saved"
+  },
+  "messageGestureSaved": {
+    "message": "Gesture saved"
+  },
+  "messageGestureDeleted": {
+    "message": "Gesture deleted"
+  },
+  "messageGestureEnabled": {
+    "message": "Gesture enabled"
+  },
+  "messageGestureDisabled": {
+    "message": "Gesture disabled"
+  },
+  "messageSaveFailed": {
+    "message": "Save failed"
+  },
+  "messageGestureTooShort": {
+    "message": "Gesture too short, please draw a longer gesture"
+  },
+  "messageGestureUnrecognized": {
+    "message": "Gesture unrecognized, please record again"
+  },
+  "messageEnterGestureName": {
+    "message": "Please enter gesture name"
+  },
+  "messageSelectAction": {
+    "message": "Please select action"
+  },
+  "messageGestureExists": {
+    "message": "Gesture pattern already exists"
+  },
+  "confirmDelete": {
+    "message": "Are you sure you want to delete this gesture?"
+  },
+  
+  "noCustomGestures": {
+    "message": "No custom gestures yet"
+  },
+  "noCustomGesturesHint": {
+    "message": "Click the button below to create your exclusive gesture"
+  },
+  "actionExecuted": {
+    "message": "Action Executed"
+  },
+  "currentMotion": {
+    "message": "Current Motion"
+  },
+  "drawGesture": {
+    "message": "Drag to draw gesture"
+  },
+  "dragToCancelMotion": {
+    "message": "Drag to page edge to cancel motion"
+  },
+  "gestureDisabledSidepanel": {
+    "message": "Gesture feature is disabled (please close extension side panel)"
+  },
+  
+  "gestureGoBack": {
+    "message": "Go Back"
+  },
+  "gestureGoForward": {
+    "message": "Go Forward"
+  },
+  "gestureScrollToTop": {
+    "message": "Scroll to Top"
+  },
+  "gestureScrollToBottom": {
+    "message": "Scroll to Bottom"
+  },
+  "gestureRefreshTab": {
+    "message": "Refresh Page"
+  },
+  "gestureNewTab": {
+    "message": "New Tab"
+  },
+  "gestureCloseTab": {
+    "message": "Close Tab"
+  },
+  "gestureReopenTab": {
+    "message": "Reopen Tab"
+  },
+  "gestureDuplicateTab": {
+    "message": "Duplicate Tab"
+  },
+  "gesturePreviousTab": {
+    "message": "Previous Tab"
+  },
+  "gestureNextTab": {
+    "message": "Next Tab"
+  },
+  "gestureTogglePinTab": {
+    "message": "Pin Tab"
+  },
+  "gestureMinimizeWindow": {
+    "message": "Minimize Window"
+  },
+  "gestureToggleFullscreen": {
+    "message": "Toggle Fullscreen"
+  },
+  
+  "motionExecutionDisabled": {
+    "message": "Motion execution feature is disabled"
+  },
+  "patternNotFound": {
+    "message": "No action mapping found for pattern"
+  },
+  "motionExecuted": {
+    "message": "Motion executed"
+  },
+  "executionFailed": {
+    "message": "Execution failed"
+  },
+  "processingFailed": {
+    "message": "Processing failed"
   }
 }

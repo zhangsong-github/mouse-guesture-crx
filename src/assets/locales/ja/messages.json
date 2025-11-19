@@ -1,0 +1,391 @@
+{
+  "extName": {
+    "message": "マウスジェスチャーパイロット"
+  },
+  "extDescription": {
+    "message": "視覚的な軌跡効果を持つ強力なマウスジェスチャー拡張機能"
+  },
+  
+  "optionsTitle": {
+    "message": "マウスジェスチャー - 設定"
+  },
+  "optionsSubtitle": {
+    "message": "マウスジェスチャーを設定して、ブラウジング体験を向上させましょう"
+  },
+  
+  "presetGestures": {
+    "message": "プリセットジェスチャー"
+  },
+  "customGestures": {
+    "message": "カスタムジェスチャー"
+  },
+  "customGesturesDescription": {
+    "message": "実際のマウス操作でジェスチャーを記録し、複雑なジェスチャーの組み合わせをサポート"
+  },
+  "recordNewGesture": {
+    "message": "新しいジェスチャーを記録"
+  },
+  
+  "gestureRecording": {
+    "message": "ジェスチャー記録"
+  },
+  "recordingReady": {
+    "message": "記録準備完了"
+  },
+  "recordingInstructions": {
+    "message": "マウスの右ボタンを押しながら、マウスを動かしてジェスチャーの軌跡を描きます"
+  },
+  "recordingInProgress": {
+    "message": "記録中..."
+  },
+  "recordingContinue": {
+    "message": "マウスを動かし続けてジェスチャーを描き、右ボタンを離して記録を完了します"
+  },
+  "recordingComplete": {
+    "message": "記録完了"
+  },
+  "recordingCompleteInstructions": {
+    "message": "ジェスチャー名とアクションを設定して、保存してください"
+  },
+  
+  "cancel": {
+    "message": "キャンセル"
+  },
+  "clear": {
+    "message": "クリア"
+  },
+  "save": {
+    "message": "保存"
+  },
+  "saveGesture": {
+    "message": "ジェスチャーを保存"
+  },
+  "delete": {
+    "message": "削除"
+  },
+  
+  "gestureName": {
+    "message": "ジェスチャー名："
+  },
+  "gestureNamePlaceholder": {
+    "message": "ジェスチャー名を入力"
+  },
+  "gestureAction": {
+    "message": "実行アクション："
+  },
+  "selectAction": {
+    "message": "アクションを選択"
+  },
+  
+  "gestureSettings": {
+    "message": "ジェスチャー設定"
+  },
+  "gestureSensitivity": {
+    "message": "ジェスチャー感度："
+  },
+  "trailDuration": {
+    "message": "軌跡の持続時間："
+  },
+  
+  "actionGoBack": {
+    "message": "戻る"
+  },
+  "actionGoForward": {
+    "message": "進む"
+  },
+  "actionScrollToTop": {
+    "message": "トップへスクロール"
+  },
+  "actionScrollToBottom": {
+    "message": "ボトムへスクロール"
+  },
+  "actionPreviousTab": {
+    "message": "前のタブ"
+  },
+  "actionNextTab": {
+    "message": "次のタブ"
+  },
+  "actionNewTab": {
+    "message": "新しいタブ"
+  },
+  "actionCloseTab": {
+    "message": "タブを閉じる"
+  },
+  "actionRefreshTab": {
+    "message": "ページを更新"
+  },
+  "actionReopenTab": {
+    "message": "タブを復元"
+  },
+  "actionDuplicateTab": {
+    "message": "タブを複製"
+  },
+  "actionTogglePinTab": {
+    "message": "タブを固定"
+  },
+  "actionMinimizeWindow": {
+    "message": "ウィンドウを最小化"
+  },
+  "actionToggleFullscreen": {
+    "message": "全画面切り替え"
+  },
+  
+  "footerVersion": {
+    "message": "マウスジェスチャー v1.1.1 | プロフェッショナルなマウスジェスチャーツール"
+  },
+  "footerTip": {
+    "message": "💡 ヒント：複雑なジェスチャーは複数の方向を組み合わせることができます。例：↑→↓ または ←→←"
+  },
+  
+  "sidepanelTitle": {
+    "message": "マウスジェスチャー"
+  },
+  "sidepanelVersion": {
+    "message": "v1.1.1"
+  },
+  "enabled": {
+    "message": "有効"
+  },
+  "disabled": {
+    "message": "無効"
+  },
+  
+  "quickActions": {
+    "message": "クイックアクション"
+  },
+  "settingsCenter": {
+    "message": "設定センター"
+  },
+  "manageCustomGestures": {
+    "message": "カスタムジェスチャーを管理"
+  },
+  
+  "extensionDisabled": {
+    "message": "拡張機能が無効になっています"
+  },
+  "extensionDisabledMessage": {
+    "message": "上のスイッチをクリックして拡張機能を有効にしてください"
+  },
+  "enableNow": {
+    "message": "今すぐ有効にする"
+  },
+  
+  "helpGuide": {
+    "message": "使用ガイド"
+  },
+  "basicOperations": {
+    "message": "基本操作"
+  },
+  "helpStep1": {
+    "message": "ジェスチャーを開始："
+  },
+  "helpStep1Detail": {
+    "message": "マウスの右ボタンを押し続ける"
+  },
+  "helpStep2": {
+    "message": "軌跡を描く："
+  },
+  "helpStep2Detail": {
+    "message": "右ボタンを押したまま、マウスを動かしてジェスチャーを描く"
+  },
+  "helpStep3": {
+    "message": "アクションを実行："
+  },
+  "helpStep3Detail": {
+    "message": "右ボタンを離すと、システムが認識して対応するアクションを実行します"
+  },
+  
+  "visualFeedback": {
+    "message": "視覚的フィードバック"
+  },
+  "visualTrail": {
+    "message": "青い軌跡線がマウスの移動パスを表示"
+  },
+  "visualPattern": {
+    "message": "画面中央に現在認識されているジェスチャーパターンを表示"
+  },
+  "visualSuccess": {
+    "message": "実行成功後、アクション名を表示"
+  },
+  
+  "advancedFeatures": {
+    "message": "高度な機能"
+  },
+  "customGestureFeature": {
+    "message": "カスタムジェスチャー："
+  },
+  "customGestureFeatureDetail": {
+    "message": "設定センターで専用ジェスチャーを記録"
+  },
+  "sensitivityFeature": {
+    "message": "感度調整："
+  },
+  "sensitivityFeatureDetail": {
+    "message": "使用習慣に応じて認識感度を調整"
+  },
+  "statisticsFeature": {
+    "message": "使用統計："
+  },
+  "statisticsFeatureDetail": {
+    "message": "ジェスチャーの使用頻度と設定を表示"
+  },
+  
+  "unsupportedPage": {
+    "message": "現在のページはサポートされていません"
+  },
+  "unsupportedPageReason": {
+    "message": "Chrome内部ページはジェスチャー拡張機能をサポートしていません"
+  },
+  "supportedPageTypes": {
+    "message": "サポートされているページタイプ："
+  },
+  "supportedTypeWeb": {
+    "message": "通常のWebページ（http/https）"
+  },
+  "supportedTypeLocal": {
+    "message": "ローカルHTMLファイル"
+  },
+  "supportedTypeIntranet": {
+    "message": "イントラネットページ"
+  },
+  "openSettings": {
+    "message": "設定センターを開く"
+  },
+  
+  "languageSettings": {
+    "message": "言語設定"
+  },
+  "language": {
+    "message": "言語："
+  },
+  "languageEnglish": {
+    "message": "English"
+  },
+  "languageChinese": {
+    "message": "简体中文"
+  },
+  "languageGerman": {
+    "message": "Deutsch"
+  },
+  "languageJapanese": {
+    "message": "日本語"
+  },
+  
+  "messageSaved": {
+    "message": "設定が保存されました"
+  },
+  "messageGestureSaved": {
+    "message": "ジェスチャーが保存されました"
+  },
+  "messageGestureDeleted": {
+    "message": "ジェスチャーが削除されました"
+  },
+  "messageGestureEnabled": {
+    "message": "ジェスチャーが有効になりました"
+  },
+  "messageGestureDisabled": {
+    "message": "ジェスチャーが無効になりました"
+  },
+  "messageSaveFailed": {
+    "message": "保存に失敗しました"
+  },
+  "messageGestureTooShort": {
+    "message": "ジェスチャーが短すぎます。もっと長いジェスチャーを描いてください"
+  },
+  "messageGestureUnrecognized": {
+    "message": "ジェスチャーを認識できません。もう一度記録してください"
+  },
+  "messageEnterGestureName": {
+    "message": "ジェスチャー名を入力してください"
+  },
+  "messageSelectAction": {
+    "message": "アクションを選択してください"
+  },
+  "messageGestureExists": {
+    "message": "ジェスチャーパターンは既に存在します"
+  },
+  "confirmDelete": {
+    "message": "このジェスチャーを削除してもよろしいですか？"
+  },
+  
+  "noCustomGestures": {
+    "message": "カスタムジェスチャーはまだありません"
+  },
+  "noCustomGesturesHint": {
+    "message": "下のボタンをクリックして専用のジェスチャーを作成してください"
+  },
+  "actionExecuted": {
+    "message": "アクションが実行されました"
+  },
+  "currentMotion": {
+    "message": "現在の動作"
+  },
+  "drawGesture": {
+    "message": "ドラッグしてジェスチャーを描画"
+  },
+  "dragToCancelMotion": {
+    "message": "ページの端にドラッグして動作をキャンセル"
+  },
+  "gestureDisabledSidepanel": {
+    "message": "ジェスチャー機能が無効です（拡張サイドパネルを閉じてください）"
+  },
+  
+  "gestureGoBack": {
+    "message": "戻る"
+  },
+  "gestureGoForward": {
+    "message": "進む"
+  },
+  "gestureScrollToTop": {
+    "message": "トップへスクロール"
+  },
+  "gestureScrollToBottom": {
+    "message": "ボトムへスクロール"
+  },
+  "gestureRefreshTab": {
+    "message": "ページを更新"
+  },
+  "gestureNewTab": {
+    "message": "新しいタブ"
+  },
+  "gestureCloseTab": {
+    "message": "タブを閉じる"
+  },
+  "gestureReopenTab": {
+    "message": "タブを再度開く"
+  },
+  "gestureDuplicateTab": {
+    "message": "タブを複製"
+  },
+  "gesturePreviousTab": {
+    "message": "前のタブ"
+  },
+  "gestureNextTab": {
+    "message": "次のタブ"
+  },
+  "gestureTogglePinTab": {
+    "message": "タブを固定"
+  },
+  "gestureMinimizeWindow": {
+    "message": "ウィンドウを最小化"
+  },
+  "gestureToggleFullscreen": {
+    "message": "全画面表示を切り替え"
+  },
+  
+  "motionExecutionDisabled": {
+    "message": "モーション実行機能が無効です"
+  },
+  "patternNotFound": {
+    "message": "パターンのアクションマッピングが見つかりません"
+  },
+  "motionExecuted": {
+    "message": "モーションを実行しました"
+  },
+  "executionFailed": {
+    "message": "実行に失敗しました"
+  },
+  "processingFailed": {
+    "message": "処理に失敗しました"
+  }
+}

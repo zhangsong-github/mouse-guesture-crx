@@ -21,6 +21,10 @@ class MotionTracker {
         this.pathRenderer = null; // 将在初始化时创建
         this.contextMenuPreventTimer = null;
         
+    // i18n（内容脚本内独立维护，优先使用用户在选项页/侧边栏选择的语言）
+    this.i18nMessages = null; // { key: { message: string } }
+    this.selectedLocale = null; // en | zh_CN | de | ja
+        
         // 防止频繁提示的时间戳
         this.lastDisabledHintTime = 0;
         this.disabledHintCooldown = 5000; // 5秒内不重复提示
@@ -52,6 +56,8 @@ class MotionTracker {
         });
         
         try {
+            // 优先初始化 i18n（尽量在 UI 使用前准备好翻译）
+            await this._initI18n();
             // 先初始化输入管理器和路径渲染器（不依赖settings）
             this._initializeInputManager();
             this._initializePathRenderer();
@@ -85,6 +91,75 @@ class MotionTracker {
         } catch (error) {
             console.error('MotionTracker initialization failed:', error);
         }
+    }
+
+    /**
+     * 初始化内容脚本内的 i18n
+     * 优先使用用户在 UI 中选择的语言（chrome.storage.local.selectedLocale）
+     * 回退到浏览器 UI 语言，然后再回退到 Chrome i18n API 或内置中文
+     * @private
+     */
+    async _initI18n() {
+        try {
+            // 读取用户选择的语言
+            let savedLocale = null;
+            try {
+                const result = await chrome.storage.local.get('selectedLocale');
+                savedLocale = result.selectedLocale || null;
+            } catch (e) {
+                // 忽略读取失败
+            }
+
+            // 支持的语言映射
+            const supported = ['en', 'zh_CN', 'de', 'ja'];
+
+            if (savedLocale && supported.includes(savedLocale)) {
+                this.selectedLocale = savedLocale;
+            } else {
+                // 使用浏览器 UI 语言做一次映射
+                const ui = (chrome.i18n && typeof chrome.i18n.getUILanguage === 'function') ? chrome.i18n.getUILanguage() : 'en';
+                if (ui.startsWith('zh')) this.selectedLocale = 'zh_CN';
+                else if (ui.startsWith('de')) this.selectedLocale = 'de';
+                else if (ui.startsWith('ja')) this.selectedLocale = 'ja';
+                else this.selectedLocale = 'en';
+            }
+
+            // 从扩展资源中加载对应语言的 messages.json
+            const url = chrome.runtime.getURL(`src/assets/locales/${this.selectedLocale}/messages.json`);
+            const res = await fetch(url);
+            if (res.ok) {
+                this.i18nMessages = await res.json();
+                console.log('✅ Content i18n loaded:', this.selectedLocale, Object.keys(this.i18nMessages || {}).length);
+            } else {
+                console.warn('⚠️ Failed to load i18n messages for', this.selectedLocale, res.status);
+                this.i18nMessages = null; // 回退到 chrome.i18n / 默认
+            }
+        } catch (err) {
+            console.warn('⚠️ _initI18n failed, will use chrome.i18n/fallback:', err);
+            this.i18nMessages = null;
+        }
+    }
+
+    /**
+     * 内容脚本获取翻译的辅助函数
+     * 优先使用 this.i18nMessages（与 UI 选择保持一致），其次使用 Chrome i18n API，最后用传入的后备文案
+     * @param {string} key
+     * @param {string} fallback
+     * @returns {string}
+     * @private
+     */
+    _t(key, fallback = '') {
+        // 1) 使用与 UI 同步的消息集合
+        if (this.i18nMessages && this.i18nMessages[key] && this.i18nMessages[key].message) {
+            return this.i18nMessages[key].message;
+        }
+        // 2) 回退到 Chrome i18n
+        if (typeof chrome !== 'undefined' && chrome.i18n && typeof chrome.i18n.getMessage === 'function') {
+            const msg = chrome.i18n.getMessage(key);
+            if (msg) return msg;
+        }
+        // 3) 最后回退
+        return fallback || key;
     }
     
     /**
@@ -698,11 +773,15 @@ class MotionTracker {
             console.log('Created new tracking hint element');
         }
         
+        // 获取 i18n 文本（提前到 if-else 外部）
+    const currentMotionLabel = this._t('currentMotion', '当前运动');
+    const drawGestureLabel = this._t('drawGesture', '拖动绘制运动');
+        
         let content = '';
         if (this.motionPattern && this.motionPattern.length > 0) {
             if (window.DirectionVisualizer) {
                 const arrows = window.DirectionVisualizer.getArrowsForPattern(this.motionPattern);
-                content = `<div class="motion-pattern">${arrows}</div><div class="motion-label">当前运动</div>`;
+                content = `<div class="motion-pattern">${arrows}</div><div class="motion-label">${currentMotionLabel}</div>`;
             } else {
                 const simpleArrows = this.motionPattern.split('').map(dir => {
                     switch(dir) {
@@ -713,10 +792,10 @@ class MotionTracker {
                         default: return dir;
                     }
                 }).join(' ');
-                content = `<div class="motion-pattern">${simpleArrows}</div><div class="motion-label">当前运动</div>`;
+                content = `<div class="motion-pattern">${simpleArrows}</div><div class="motion-label">${currentMotionLabel}</div>`;
             }
         } else {
-            content = `<div class="motion-pattern">📱</div><div class="motion-label">拖动绘制运动</div>`;
+            content = `<div class="motion-pattern">📱</div><div class="motion-label">${drawGestureLabel}</div>`;
         }
         
         hint.innerHTML = content;
@@ -779,8 +858,15 @@ class MotionTracker {
         if (!cancelZone) {
             cancelZone = document.createElement('div');
             cancelZone.id = 'motion-cancel-zone';
+            
+            // 创建消息元素（使用 i18n）
+            const message = document.createElement('div');
+            message.className = 'motion-cancel-zone-message';
+            message.textContent = chrome.i18n ? chrome.i18n.getMessage('dragToCancelMotion') : '拖动到页面边缘取消运动';
+            cancelZone.appendChild(message);
+            
             document.body.appendChild(cancelZone);
-            console.log('Created new cancel zone element');
+            console.log('Created new cancel zone element with i18n message');
         }
         
         const zIndex = window.DOMUtils ? 
@@ -818,6 +904,9 @@ class MotionTracker {
             });
         }
         
+    // 使用 i18n 获取取消提示文本
+    const cancelMsg = this._t('dragToCancelMotion', '拖动到边缘取消运动');
+        
         cancelZone.innerHTML = `
             <div style="
                 background: rgba(50, 50, 50, 0.85) !important;
@@ -828,7 +917,7 @@ class MotionTracker {
                 font-weight: normal !important;
                 box-shadow: 0 1px 4px rgba(0, 0, 0, 0.15) !important;
                 border: 1px solid rgba(80, 80, 80, 0.4) !important;
-            ">拖动到边缘取消运动</div>
+            ">${cancelMsg}</div>
         `;
         
         console.log('Set cancel zone display');
@@ -960,7 +1049,8 @@ class MotionTracker {
         const now = Date.now();
         if (now - this.lastDisabledHintTime > this.disabledHintCooldown) {
             this.lastDisabledHintTime = now;
-            this._showExecutionHint('鼠标手势功能已禁用（请关闭扩展侧边栏）', false);
+            const disabledMsg = this._t('gestureDisabledSidepanel', '鼠标手势功能已禁用（请关闭扩展侧边栏）');
+            this._showExecutionHint(disabledMsg, false);
             console.log('💡 显示禁用提示（防抖生效）');
         } else {
             console.log('🔇 跳过禁用提示（防抖冷却中）');

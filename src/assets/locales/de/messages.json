@@ -1,0 +1,391 @@
+{
+  "extName": {
+    "message": "Mausgesten-Pilot"
+  },
+  "extDescription": {
+    "message": "Eine leistungsstarke Mausgesten-Erweiterung mit visuellen Spureffekten"
+  },
+  
+  "optionsTitle": {
+    "message": "Mausgesten - Einstellungen"
+  },
+  "optionsSubtitle": {
+    "message": "Konfigurieren Sie Ihre Mausgesten und verbessern Sie Ihr Browser-Erlebnis"
+  },
+  
+  "presetGestures": {
+    "message": "Voreingestellte Gesten"
+  },
+  "customGestures": {
+    "message": "Benutzerdefinierte Gesten"
+  },
+  "customGesturesDescription": {
+    "message": "Zeichnen Sie Gesten durch tatsächliche Mausbewegungen auf, unterstützt komplexe Gestenkombinationen"
+  },
+  "recordNewGesture": {
+    "message": "Neue Geste aufzeichnen"
+  },
+  
+  "gestureRecording": {
+    "message": "Gestenaufzeichnung"
+  },
+  "recordingReady": {
+    "message": "Bereit zur Aufzeichnung"
+  },
+  "recordingInstructions": {
+    "message": "Halten Sie die rechte Maustaste gedrückt und bewegen Sie die Maus, um eine Gestenspur zu zeichnen"
+  },
+  "recordingInProgress": {
+    "message": "Aufzeichnung läuft..."
+  },
+  "recordingContinue": {
+    "message": "Bewegen Sie die Maus weiter, um die Geste zu zeichnen, lassen Sie die rechte Maustaste los, um die Aufzeichnung abzuschließen"
+  },
+  "recordingComplete": {
+    "message": "Aufzeichnung abgeschlossen"
+  },
+  "recordingCompleteInstructions": {
+    "message": "Bitte legen Sie den Gestennamen und die Aktion fest und speichern Sie dann"
+  },
+  
+  "cancel": {
+    "message": "Abbrechen"
+  },
+  "clear": {
+    "message": "Löschen"
+  },
+  "save": {
+    "message": "Speichern"
+  },
+  "saveGesture": {
+    "message": "Geste speichern"
+  },
+  "delete": {
+    "message": "Löschen"
+  },
+  
+  "gestureName": {
+    "message": "Gestenname:"
+  },
+  "gestureNamePlaceholder": {
+    "message": "Gestennamen eingeben"
+  },
+  "gestureAction": {
+    "message": "Aktion ausführen:"
+  },
+  "selectAction": {
+    "message": "Aktion wählen"
+  },
+  
+  "gestureSettings": {
+    "message": "Gesteneinstellungen"
+  },
+  "gestureSensitivity": {
+    "message": "Gestenempfindlichkeit:"
+  },
+  "trailDuration": {
+    "message": "Spurdauer:"
+  },
+  
+  "actionGoBack": {
+    "message": "Zurück"
+  },
+  "actionGoForward": {
+    "message": "Vorwärts"
+  },
+  "actionScrollToTop": {
+    "message": "Nach oben scrollen"
+  },
+  "actionScrollToBottom": {
+    "message": "Nach unten scrollen"
+  },
+  "actionPreviousTab": {
+    "message": "Vorheriger Tab"
+  },
+  "actionNextTab": {
+    "message": "Nächster Tab"
+  },
+  "actionNewTab": {
+    "message": "Neuer Tab"
+  },
+  "actionCloseTab": {
+    "message": "Tab schließen"
+  },
+  "actionRefreshTab": {
+    "message": "Seite aktualisieren"
+  },
+  "actionReopenTab": {
+    "message": "Tab wiederherstellen"
+  },
+  "actionDuplicateTab": {
+    "message": "Tab duplizieren"
+  },
+  "actionTogglePinTab": {
+    "message": "Tab anheften"
+  },
+  "actionMinimizeWindow": {
+    "message": "Fenster minimieren"
+  },
+  "actionToggleFullscreen": {
+    "message": "Vollbild umschalten"
+  },
+  
+  "footerVersion": {
+    "message": "Mausgesten v1.1.1 | Professionelles Mausgestenwerkzeug"
+  },
+  "footerTip": {
+    "message": "💡 Tipp: Komplexe Gesten können mehrere Richtungen kombinieren, wie ↑→↓ oder ←→←"
+  },
+  
+  "sidepanelTitle": {
+    "message": "Mausgesten"
+  },
+  "sidepanelVersion": {
+    "message": "v1.1.1"
+  },
+  "enabled": {
+    "message": "Aktiviert"
+  },
+  "disabled": {
+    "message": "Deaktiviert"
+  },
+  
+  "quickActions": {
+    "message": "Schnellaktionen"
+  },
+  "settingsCenter": {
+    "message": "Einstellungscenter"
+  },
+  "manageCustomGestures": {
+    "message": "Benutzerdefinierte Gesten verwalten"
+  },
+  
+  "extensionDisabled": {
+    "message": "Erweiterung deaktiviert"
+  },
+  "extensionDisabledMessage": {
+    "message": "Klicken Sie auf den obigen Schalter, um die Erweiterung zu aktivieren"
+  },
+  "enableNow": {
+    "message": "Jetzt aktivieren"
+  },
+  
+  "helpGuide": {
+    "message": "Bedienungsanleitung"
+  },
+  "basicOperations": {
+    "message": "Grundlegende Bedienung"
+  },
+  "helpStep1": {
+    "message": "Geste starten:"
+  },
+  "helpStep1Detail": {
+    "message": "Rechte Maustaste gedrückt halten"
+  },
+  "helpStep2": {
+    "message": "Spur zeichnen:"
+  },
+  "helpStep2Detail": {
+    "message": "Rechte Maustaste gedrückt halten, Maus bewegen, um Geste zu zeichnen"
+  },
+  "helpStep3": {
+    "message": "Aktion ausführen:"
+  },
+  "helpStep3Detail": {
+    "message": "Rechte Maustaste loslassen, System erkennt und führt entsprechende Aktion aus"
+  },
+  
+  "visualFeedback": {
+    "message": "Visuelle Rückmeldung"
+  },
+  "visualTrail": {
+    "message": "Blaue Spurlinie zeigt Mausbewegungspfad"
+  },
+  "visualPattern": {
+    "message": "Bildschirmmitte zeigt aktuell erkanntes Gestenmuster"
+  },
+  "visualSuccess": {
+    "message": "Nach erfolgreicher Ausführung wird Aktionsname angezeigt"
+  },
+  
+  "advancedFeatures": {
+    "message": "Erweiterte Funktionen"
+  },
+  "customGestureFeature": {
+    "message": "Benutzerdefinierte Gesten:"
+  },
+  "customGestureFeatureDetail": {
+    "message": "Zeichnen Sie exklusive Gesten im Einstellungscenter auf"
+  },
+  "sensitivityFeature": {
+    "message": "Empfindlichkeitsanpassung:"
+  },
+  "sensitivityFeatureDetail": {
+    "message": "Passen Sie die Erkennungsempfindlichkeit nach Ihren Gewohnheiten an"
+  },
+  "statisticsFeature": {
+    "message": "Nutzungsstatistik:"
+  },
+  "statisticsFeatureDetail": {
+    "message": "Zeigen Sie Gestenhäufigkeit und Präferenzen an"
+  },
+  
+  "unsupportedPage": {
+    "message": "Aktuelle Seite nicht unterstützt"
+  },
+  "unsupportedPageReason": {
+    "message": "Chrome-interne Seiten unterstützen keine Gestenerweiterung"
+  },
+  "supportedPageTypes": {
+    "message": "Unterstützte Seitentypen:"
+  },
+  "supportedTypeWeb": {
+    "message": "Normale Webseiten (http/https)"
+  },
+  "supportedTypeLocal": {
+    "message": "Lokale HTML-Dateien"
+  },
+  "supportedTypeIntranet": {
+    "message": "Intranet-Seiten"
+  },
+  "openSettings": {
+    "message": "Einstellungscenter öffnen"
+  },
+  
+  "languageSettings": {
+    "message": "Spracheinstellungen"
+  },
+  "language": {
+    "message": "Sprache:"
+  },
+  "languageEnglish": {
+    "message": "English"
+  },
+  "languageChinese": {
+    "message": "简体中文"
+  },
+  "languageGerman": {
+    "message": "Deutsch"
+  },
+  "languageJapanese": {
+    "message": "日本語"
+  },
+  
+  "messageSaved": {
+    "message": "Einstellungen gespeichert"
+  },
+  "messageGestureSaved": {
+    "message": "Geste gespeichert"
+  },
+  "messageGestureDeleted": {
+    "message": "Geste gelöscht"
+  },
+  "messageGestureEnabled": {
+    "message": "Geste aktiviert"
+  },
+  "messageGestureDisabled": {
+    "message": "Geste deaktiviert"
+  },
+  "messageSaveFailed": {
+    "message": "Speichern fehlgeschlagen"
+  },
+  "messageGestureTooShort": {
+    "message": "Geste zu kurz, bitte zeichnen Sie eine längere Geste"
+  },
+  "messageGestureUnrecognized": {
+    "message": "Geste nicht erkennbar, bitte erneut aufzeichnen"
+  },
+  "messageEnterGestureName": {
+    "message": "Bitte Gestennamen eingeben"
+  },
+  "messageSelectAction": {
+    "message": "Bitte Aktion auswählen"
+  },
+  "messageGestureExists": {
+    "message": "Gestenmuster bereits vorhanden"
+  },
+  "confirmDelete": {
+    "message": "Möchten Sie diese Geste wirklich löschen?"
+  },
+  
+  "noCustomGestures": {
+    "message": "Noch keine benutzerdefinierten Gesten"
+  },
+  "noCustomGesturesHint": {
+    "message": "Klicken Sie auf die Schaltfläche unten, um Ihre exklusive Geste zu erstellen"
+  },
+  "actionExecuted": {
+    "message": "Aktion ausgeführt"
+  },
+  "currentMotion": {
+    "message": "Aktuelle Bewegung"
+  },
+  "drawGesture": {
+    "message": "Ziehen Sie, um eine Geste zu zeichnen"
+  },
+  "dragToCancelMotion": {
+    "message": "Zum Seitenrand ziehen, um die Bewegung abzubrechen"
+  },
+  "gestureDisabledSidepanel": {
+    "message": "Gestenfunktion ist deaktiviert (bitte schließen Sie das Erweiterungsseitenfenster)"
+  },
+  
+  "gestureGoBack": {
+    "message": "Zurück"
+  },
+  "gestureGoForward": {
+    "message": "Vorwärts"
+  },
+  "gestureScrollToTop": {
+    "message": "Nach oben scrollen"
+  },
+  "gestureScrollToBottom": {
+    "message": "Nach unten scrollen"
+  },
+  "gestureRefreshTab": {
+    "message": "Seite aktualisieren"
+  },
+  "gestureNewTab": {
+    "message": "Neuer Tab"
+  },
+  "gestureCloseTab": {
+    "message": "Tab schließen"
+  },
+  "gestureReopenTab": {
+    "message": "Tab wiederherstellen"
+  },
+  "gestureDuplicateTab": {
+    "message": "Tab duplizieren"
+  },
+  "gesturePreviousTab": {
+    "message": "Vorheriger Tab"
+  },
+  "gestureNextTab": {
+    "message": "Nächster Tab"
+  },
+  "gestureTogglePinTab": {
+    "message": "Tab anheften"
+  },
+  "gestureMinimizeWindow": {
+    "message": "Fenster minimieren"
+  },
+  "gestureToggleFullscreen": {
+    "message": "Vollbild umschalten"
+  },
+  
+  "motionExecutionDisabled": {
+    "message": "Bewegungsausführung ist deaktiviert"
+  },
+  "patternNotFound": {
+    "message": "Keine Aktionszuordnung für Muster gefunden"
+  },
+  "motionExecuted": {
+    "message": "Bewegung ausgeführt"
+  },
+  "executionFailed": {
+    "message": "Ausführung fehlgeschlagen"
+  },
+  "processingFailed": {
+    "message": "Verarbeitung fehlgeschlagen"
+  }
+}

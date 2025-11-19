@@ -3,19 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>手势扩展 - 侧边栏</title>
+    <title data-i18n="sidepanelTitle">手势扩展 - 侧边栏</title>
     <link rel="stylesheet" href="../../assets/libs/nes.css/nes.min.css">
     <link rel="stylesheet" href="sidepanel.css">
 </head>
 <body class="nes-container is-dark">
     <div id="app">
+        <!-- 语言选择器容器 -->
+        <div id="languageSelectorContainer" style="padding: 8px;"></div>
+        
         <!-- 顶部标题栏 -->
         <div class="header">
             <div class="header-title">
                 <div class="logo">🖱️</div>
                 <div class="title-text">
-                    <h1 class="nes-text">手势扩展</h1>
-                    <p class="version nes-text is-primary">v1.1.1</p>
+                    <h1 class="nes-text" data-i18n="sidepanelTitle">手势扩展</h1>
+                    <p class="version nes-text is-primary" data-i18n="sidepanelVersion">v1.1.1</p>
                 </div>
             </div>
             <div class="header-controls">
@@ -26,14 +29,14 @@
                     <input type="checkbox" id="mainToggle">
                     <span class="slider"></span>
                 </label>
-                <span class="toggle-label nes-text" id="toggleLabel" style="font-size: 12px;">已禁用</span>
+                <span class="toggle-label nes-text" id="toggleLabel" style="font-size: 12px;" data-i18n="disabled">已禁用</span>
             </div>
         </div>        
         <div id="mainContent">
             <!-- 预设手势展示 -->
             <div class="section nes-container is-rounded is-dark">
                 <div class="section-header">
-                    <h3 class="nes-text is-success">📋 预设手势</h3>
+                    <h3 class="nes-text is-success" data-i18n-html="presetGestures">📋 预设手势</h3>
                 </div>
                 <div class="gesture-container expanded" id="gestureContainer">
                     <div class="gesture-list" id="gestureList">
@@ -45,7 +48,7 @@
             <!-- 自定义手势概览 -->
             <div class="section nes-container is-rounded is-dark">
                 <div class="section-header">
-                    <h3 class="nes-text is-warning">🎨 自定义手势</h3>
+                    <h3 class="nes-text is-warning" data-i18n-html="customGestures">🎨 自定义手势</h3>
                 </div>
                 <div class="custom-gestures-container expanded" id="customGesturesContainer">
                     <div class="custom-gestures-preview" id="customGesturesPreview">
@@ -53,7 +56,7 @@
                     </div>
                     <div class="section-footer">
                         <button class="nes-btn is-warning full-width" id="manageCustomBtn">
-                            <span>🎯</span> 管理自定义手势
+                            <span>🎯</span> <span data-i18n="manageCustomGestures">管理自定义手势</span>
                         </button>
                     </div>
                 </div>
@@ -63,12 +66,12 @@
             <!-- 快速操作面板 -->
             <div class="section nes-container is-rounded is-dark">
                 <div class="section-header">
-                    <h3 class="nes-text is-error">⚡ 快速操作</h3>
+                    <h3 class="nes-text is-error" data-i18n-html="quickActions">⚡ 快速操作</h3>
                 </div>
                 <div class="quick-actions-grid">
                     <button class="nes-btn is-error quick-action-btn" data-action="options">
                         <span class="action-icon">⚙️</span>
-                        <span class="action-text">设置中心</span>
+                        <span class="action-text" data-i18n="settingsCenter">设置中心</span>
                     </button>
                 </div>
             </div>
@@ -79,10 +82,10 @@
         <div id="disabledMessage" class="nes-container is-rounded is-centered" style="display: none;">
             <div class="disabled-content">
                 <div class="disabled-icon">😴</div>
-                <h3 class="nes-text">手势扩展已禁用</h3>
-                <p class="nes-text is-disabled">点击上方开关启用扩展功能</p>
+                <h3 class="nes-text" data-i18n="extensionDisabled">手势扩展已禁用</h3>
+                <p class="nes-text is-disabled" data-i18n="extensionDisabledMessage">点击上方开关启用扩展功能</p>
                 <button class="nes-btn is-success" id="enableBtn">
-                    <span>🚀</span> 立即启用
+                    <span>🚀</span> <span data-i18n="enableNow">立即启用</span>
                 </button>
             </div>
         </div>
@@ -91,19 +94,19 @@
         <div id="helpSection" class="nes-container is-rounded" style="display: none;">
             <div class="help-content">
                 <div class="help-header">
-                    <h3 class="nes-text">📖 使用说明</h3>
+                    <h3 class="nes-text" data-i18n-html="helpGuide">📖 使用说明</h3>
                     <button class="nes-btn is-error btn-icon" id="closeHelpBtn">✕</button>
                 </div>
                 
                 <div class="help-sections">
                     <div class="help-category nes-container is-rounded">
-                        <h4 class="nes-text is-primary">🖱️ 基本操作</h4>
+                        <h4 class="nes-text is-primary" data-i18n-html="basicOperations">🖱️ 基本操作</h4>
                         <div class="help-item">
                             <div class="help-step nes-badge is-splited">
                                 <span class="is-dark">1</span>
                             </div>
                             <div class="help-text">
-                                <strong>启动手势:</strong> 按住鼠标右键
+                                <strong data-i18n="helpStep1">启动手势:</strong> <span data-i18n="helpStep1Detail">按住鼠标右键</span>
                             </div>
                         </div>
                         <div class="help-item">
@@ -111,7 +114,7 @@
                                 <span class="is-dark">2</span>
                             </div>
                             <div class="help-text">
-                                <strong>绘制轨迹:</strong> 保持右键按住，移动鼠标绘制手势
+                                <strong data-i18n="helpStep2">绘制轨迹:</strong> <span data-i18n="helpStep2Detail">保持右键按住，移动鼠标绘制手势</span>
                             </div>
                         </div>
                         <div class="help-item">
@@ -119,45 +122,45 @@
                                 <span class="is-dark">3</span>
                             </div>
                             <div class="help-text">
-                                <strong>执行动作:</strong> 释放右键，系统识别并执行对应动作
+                                <strong data-i18n="helpStep3">执行动作:</strong> <span data-i18n="helpStep3Detail">释放右键，系统识别并执行对应动作</span>
                             </div>
                         </div>
                     </div>
                     
                     <div class="help-category nes-container is-rounded">
-                        <h4 class="nes-text is-success">🎨 视觉反馈</h4>
+                        <h4 class="nes-text is-success" data-i18n-html="visualFeedback">🎨 视觉反馈</h4>
                         <div class="help-item">
                             <span class="help-icon">🔵</span>
-                            <div class="help-text">蓝色轨迹线显示鼠标移动路径</div>
+                            <div class="help-text" data-i18n="visualTrail">蓝色轨迹线显示鼠标移动路径</div>
                         </div>
                         <div class="help-item">
                             <span class="help-icon">📝</span>
-                            <div class="help-text">屏幕中央显示当前识别的手势模式</div>
+                            <div class="help-text" data-i18n="visualPattern">屏幕中央显示当前识别的手势模式</div>
                         </div>
                         <div class="help-item">
                             <span class="help-icon">✅</span>
-                            <div class="help-text">成功执行后显示动作名称</div>
+                            <div class="help-text" data-i18n="visualSuccess">成功执行后显示动作名称</div>
                         </div>
                     </div>
                     
                     <div class="help-category nes-container is-rounded">
-                        <h4 class="nes-text is-warning">⚙️ 高级功能</h4>
+                        <h4 class="nes-text is-warning" data-i18n-html="advancedFeatures">⚙️ 高级功能</h4>
                         <div class="help-item">
                             <span class="help-icon">🎯</span>
                             <div class="help-text">
-                                <strong>自定义手势:</strong> 在设置中心录制专属手势
+                                <strong data-i18n="customGestureFeature">自定义手势:</strong> <span data-i18n="customGestureFeatureDetail">在设置中心录制专属手势</span>
                             </div>
                         </div>
                         <div class="help-item">
                             <span class="help-icon">🔧</span>
                             <div class="help-text">
-                                <strong>敏感度调节:</strong> 根据使用习惯调整识别敏感度
+                                <strong data-i18n="sensitivityFeature">敏感度调节:</strong> <span data-i18n="sensitivityFeatureDetail">根据使用习惯调整识别敏感度</span>
                             </div>
                         </div>
                         <div class="help-item">
                             <span class="help-icon">📊</span>
                             <div class="help-text">
-                                <strong>使用统计:</strong> 查看手势使用频率和偏好
+                                <strong data-i18n="statisticsFeature">使用统计:</strong> <span data-i18n="statisticsFeatureDetail">查看手势使用频率和偏好</span>
                             </div>
                         </div>
                     </div>
@@ -169,25 +172,26 @@
         <div id="unsupportedMessage" class="nes-container is-rounded is-centered" style="display: none;">
             <div class="unsupported-content">
                 <div class="unsupported-icon">🚫</div>
-                <h3 class="nes-text is-error">当前页面不支持</h3>
-                <p id="unsupportedReason" class="nes-text is-disabled">Chrome内置页面不支持手势扩展</p>
+                <h3 class="nes-text is-error" data-i18n="unsupportedPage">当前页面不支持</h3>
+                <p id="unsupportedReason" class="nes-text is-disabled" data-i18n="unsupportedPageReason">Chrome内置页面不支持手势扩展</p>
                 <div class="unsupported-tips nes-container is-rounded">
-                    <h4 class="nes-text">支持的页面类型:</h4>
+                    <h4 class="nes-text" data-i18n="supportedPageTypes">支持的页面类型:</h4>
                     <ul class="nes-list is-disc">
-                        <li>普通网页 (http/https)</li>
-                        <li>本地HTML文件</li>
-                        <li>内网页面</li>
+                        <li data-i18n="supportedTypeWeb">普通网页 (http/https)</li>
+                        <li data-i18n="supportedTypeLocal">本地HTML文件</li>
+                        <li data-i18n="supportedTypeIntranet">内网页面</li>
                     </ul>
                 </div>
                 <div class="unsupported-actions">
                     <button class="nes-btn is-primary" id="openOptionsFromUnsupported">
-                        <span>⚙️</span> 打开设置中心
+                        <span>⚙️</span> <span data-i18n="openSettings">打开设置中心</span>
                     </button>
                 </div>
             </div>
         </div>
     </div>
     
+    <script src="../../utils/i18n-manager.js"></script>
     <script src="../../js/gesture-arrows.js"></script>
     <script src="sidepanel.js"></script>
 </body>

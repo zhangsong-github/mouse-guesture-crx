@@ -70,6 +70,7 @@ export default defineConfig(({ mode }) => {
           'src/utils/dom-utils': resolve(__dirname, 'src/utils/dom-utils.js'),
           'src/utils/message-utils': resolve(__dirname, 'src/utils/message-utils.js'),
           'src/utils/pattern-analyzer': resolve(__dirname, 'src/utils/pattern-analyzer.js'),
+          // 注意：i18n-manager.js 作为静态文件复制，不通过 Vite 构建
           'src/core/path-renderer': resolve(__dirname, 'src/core/path-renderer.js'),
           'src/core/unified-input-manager': resolve(__dirname, 'src/core/unified-input-manager.js'),
           'src/core/motion-tracker': resolve(__dirname, 'src/core/motion-tracker.js'),
@@ -91,6 +92,7 @@ export default defineConfig(({ mode }) => {
             if (name === 'src/utils/dom-utils') return 'src/utils/dom-utils.js';
             if (name === 'src/utils/message-utils') return 'src/utils/message-utils.js';
             if (name === 'src/utils/pattern-analyzer') return 'src/utils/pattern-analyzer.js';
+            // i18n-manager.js 作为静态文件复制，不在这里处理
             if (name === 'src/core/path-renderer') return 'src/core/path-renderer.js';
             if (name === 'src/core/unified-input-manager') return 'src/core/unified-input-manager.js';
             if (name === 'src/core/motion-tracker') return 'src/core/motion-tracker.js';
@@ -174,6 +176,11 @@ export default defineConfig(({ mode }) => {
             src: 'src/js/**/*',
             dest: 'src/js'
           },
+          // 复制 i18n-manager.js（不通过 Vite 构建，避免 ES module 包裹问题）
+          {
+            src: 'src/utils/i18n-manager.js',
+            dest: 'src/utils'
+          },
           // 复制外部库文件 (NES.css 等)
           {
             src: 'src/assets/libs/**/*',
@@ -188,6 +195,12 @@ export default defineConfig(({ mode }) => {
             src: 'image/**/*',
             dest: 'image'
           },
+          // 复制多语言资源文件（保留原始路径结构）
+          {
+            src: 'src/assets/locales/**/*',
+            dest: 'src/assets/locales'
+          },
+          // 同时复制到 _locales 以支持 Chrome i18n API
           {
             src: 'src/assets/locales/**/*',
             dest: '_locales'

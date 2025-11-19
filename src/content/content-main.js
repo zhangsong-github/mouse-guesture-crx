@@ -100,8 +100,7 @@ function injectStyles() {
             align-items: center !important;
         }
         
-        .motion-cancel-zone::after {
-            content: "拖动到页面边缘取消运动" !important;
+        .motion-cancel-zone-message {
             background: rgba(255, 255, 255, 0.9) !important;
             color: #d32f2f !important;
             padding: 8px 16px !important;
@@ -109,6 +108,7 @@ function injectStyles() {
             font-size: 14px !important;
             font-weight: bold !important;
             box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2) !important;
+            pointer-events: none !important;
         }
         
         .motion-execution-hint {

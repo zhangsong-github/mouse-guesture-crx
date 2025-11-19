@@ -1,9 +1,11 @@
 // 选项页面的JavaScript逻辑 - 重构后版本
 
-// 调试：检查 GestureArrowDisplay 是否已加载
-console.log('Options.js loading, GestureArrowDisplay available:', typeof window.GestureArrowDisplay !== 'undefined');
+// 调试：检查依赖是否加载
+console.log('🔍 Options.js loading...');
+console.log('  - i18nManager available:', typeof window.i18nManager !== 'undefined');
+console.log('  - GestureArrowDisplay available:', typeof window.GestureArrowDisplay !== 'undefined');
 if (typeof window.GestureArrowDisplay !== 'undefined') {
-    console.log('GestureArrowDisplay methods:', Object.keys(window.GestureArrowDisplay));
+    console.log('  - GestureArrowDisplay methods:', Object.keys(window.GestureArrowDisplay));
 }
 
 class MotionOptions {
@@ -29,11 +31,57 @@ class MotionOptions {
     }
     
     async init() {
+        // 初始化多语言系统
+        await this.initializeI18n();
+        
         await this.loadSettings();
         this.initializeCanvas();
         this.bindEvents();
         this.render();
         this.setupMessageListener();
+    }
+    
+    async initializeI18n() {
+        try {
+            // 等待 i18nManager 加载（最多等待2秒）
+            let attempts = 0;
+            while (!window.i18nManager && attempts < 20) {
+                await new Promise(resolve => setTimeout(resolve, 100));
+                attempts++;
+            }
+            
+            // 初始化 i18n manager
+            if (window.i18nManager) {
+                await window.i18nManager.initialize();
+                
+                // 创建语言选择器
+                const container = document.getElementById('languageSelectorContainer');
+                if (container) {
+                    window.i18nManager.createLanguageSelector(container, (locale) => {
+                        console.log('Language changed to:', locale);
+                        // 重新渲染动态内容（手势列表等）
+                        this.render();
+                        // 显示成功消息
+                        this.showMessage(window.i18nManager.getMessage('messageSaved'), 'success');
+                    });
+                }
+                
+                // 初始化页面文本
+                window.i18nManager.initializePageTexts();
+                
+                // 更新HTML lang属性
+                document.documentElement.lang = window.i18nManager.getHtmlLangCode(
+                    window.i18nManager.getCurrentLocale()
+                );
+                
+                console.log('✅ I18n initialized for options page');
+            } else {
+                console.warn('⚠️ i18nManager not available after waiting');
+                console.log('Available window properties:', Object.keys(window));
+            }
+        } catch (error) {
+            console.error('❌ Failed to initialize i18n:', error);
+        }
     }
     
     async loadSettings() {
@@ -142,35 +190,45 @@ class MotionOptions {
     }
     
     getDefaultMotions() {
+        // 辅助函数：获取手势名称（带后备）
+        const getGestureName = (action) => {
+            const key = `gesture${action.charAt(0).toUpperCase()}${action.slice(1)}`;
+            // 使用 window.i18nManager 直接获取
+            if (window.i18nManager && window.i18nManager.messages[key]) {
+                return window.i18nManager.getMessage(key);
+            }
+            return action;
+        };
+        
         // 返回所有预设手势，与 background.js 的 defaultConfig.actionMappings 保持一致
         return [
             // === 页面导航 (最常用) ===
-            { pattern: 'L', action: 'goBack', name: '后退', enabled: true, custom: false },
-            { pattern: 'R', action: 'goForward', name: '前进', enabled: true, custom: false },
+            { pattern: 'L', action: 'goBack', name: getGestureName('goBack'), enabled: true, custom: false },
+            { pattern: 'R', action: 'goForward', name: getGestureName('goForward'), enabled: true, custom: false },
             
             // === 页面滚动 ===
-            { pattern: 'U', action: 'scrollToTop', name: '滚动到顶部', enabled: true, custom: false },
-            { pattern: 'D', action: 'scrollToBottom', name: '滚动到底部', enabled: true, custom: false },
+            { pattern: 'U', action: 'scrollToTop', name: getGestureName('scrollToTop'), enabled: true, custom: false },
+            { pattern: 'D', action: 'scrollToBottom', name: getGestureName('scrollToBottom'), enabled: true, custom: false },
             
             // === 页面刷新 ===
-            { pattern: 'UD', action: 'refreshTab', name: '刷新页面', enabled: true, custom: false },
+            { pattern: 'UD', action: 'refreshTab', name: getGestureName('refreshTab'), enabled: true, custom: false },
             
             // === 标签页管理 (高频操作) ===
-            { pattern: 'DL', action: 'newTab', name: '新建标签页', enabled: true, custom: false },
-            { pattern: 'DR', action: 'closeTab', name: '关闭标签页', enabled: true, custom: false },
-            { pattern: 'RL', action: 'reopenTab', name: '重新打开标签页', enabled: true, custom: false },
-            { pattern: 'URD', action: 'duplicateTab', name: '复制标签页', enabled: true, custom: false },
+            { pattern: 'DL', action: 'newTab', name: getGestureName('newTab'), enabled: true, custom: false },
+            { pattern: 'DR', action: 'closeTab', name: getGestureName('closeTab'), enabled: true, custom: false },
+            { pattern: 'RL', action: 'reopenTab', name: getGestureName('reopenTab'), enabled: true, custom: false },
+            { pattern: 'URD', action: 'duplicateTab', name: getGestureName('duplicateTab'), enabled: true, custom: false },
             
             // === 标签页切换 ===
-            { pattern: 'UL', action: 'previousTab', name: '前一标签', enabled: true, custom: false },
-            { pattern: 'UR', action: 'nextTab', name: '下一标签', enabled: true, custom: false },
+            { pattern: 'UL', action: 'previousTab', name: getGestureName('previousTab'), enabled: true, custom: false },
+            { pattern: 'UR', action: 'nextTab', name: getGestureName('nextTab'), enabled: true, custom: false },
             
             // === 标签页状态 ===
-            { pattern: 'RUL', action: 'togglePinTab', name: '固定标签', enabled: true, custom: false },
+            { pattern: 'RUL', action: 'togglePinTab', name: getGestureName('togglePinTab'), enabled: true, custom: false },
             
             // === 窗口管理 ===
-            { pattern: 'DLU', action: 'minimizeWindow', name: '最小化窗口', enabled: true, custom: false },
-            { pattern: 'ULD', action: 'toggleFullscreen', name: '全屏切换', enabled: true, custom: false }
+            { pattern: 'DLU', action: 'minimizeWindow', name: getGestureName('minimizeWindow'), enabled: true, custom: false },
+            { pattern: 'ULD', action: 'toggleFullscreen', name: getGestureName('toggleFullscreen'), enabled: true, custom: false }
         ];
     }
     
@@ -553,10 +611,13 @@ class MotionOptions {
             window.GestureArrowDisplay.createGestureVisual(gesture.pattern) :
             this.createFallbackVisual(gesture.pattern);
         
+        // 对于预设手势，动态获取 i18n 名称；自定义手势使用保存的名称
+        const gestureName = isCustom ? gesture.name : this.getGestureDisplayName(gesture.action);
+        
         div.innerHTML = `
             <div class="gesture-visual-container"></div>
             <div class="gesture-info">
-                <div class="gesture-name">${gesture.name}</div>
+                <div class="gesture-name">${gestureName}</div>
                 <div class="gesture-pattern">${gesture.pattern}</div>
                 <div class="gesture-action">${this.getActionDisplayName(gesture.action)}</div>
             </div>
@@ -607,18 +668,61 @@ class MotionOptions {
     }
     
     getActionDisplayName(action) {
+        // 使用多语言系统获取动作名称
+        const i18nKey = `action${action.charAt(0).toUpperCase()}${action.slice(1)}`;
+        
+        if (window.i18nManager && window.i18nManager.messages[i18nKey]) {
+            return window.i18nManager.getMessage(i18nKey);
+        }
+        
+        // 后备方案：使用固定的映射表
         const actionNames = {
-            'back': '后退',
-            'forward': '前进',
-            'refresh': '刷新页面',
-            'scrollTop': '滚动到顶部',
-            'scrollBottom': '滚动到底部',
+            'goBack': '后退',
+            'goForward': '前进',
+            'previousTab': '前一标签',
+            'nextTab': '下一标签',
+            'scrollToTop': '滚动到顶部',
+            'scrollToBottom': '滚动到底部',
             'newTab': '新建标签页',
             'closeTab': '关闭标签页',
-            'restoreTab': '恢复标签页',
-            'custom': '自定义动作'
+            'refreshTab': '刷新页面',
+            'reopenTab': '重新打开标签页',
+            'duplicateTab': '复制标签页',
+            'minimizeWindow': '最小化窗口',
+            'toggleFullscreen': '全屏切换',
+            'togglePinTab': '固定标签'
         };
         return actionNames[action] || action;
+    }
+    
+    /**
+     * 获取手势显示名称（用于预设手势）
+     * @param {string} action - 动作名称
+     * @returns {string} 翻译后的手势名称
+     */
+    getGestureDisplayName(action) {
+        // 使用 gesture 前缀的 i18n 键
+        const i18nKey = `gesture${action.charAt(0).toUpperCase()}${action.slice(1)}`;
+        
+        if (window.i18nManager && window.i18nManager.messages[i18nKey]) {
+            return window.i18nManager.getMessage(i18nKey);
+        }
+        
+        // 后备方案：使用 action 的显示名称
+        return this.getActionDisplayName(action);
+    }
+    
+    /**
+     * 获取国际化文本的辅助方法
+     * @param {string} key - 消息键
+     * @param {string} fallback - 后备文本
+     * @returns {string} 翻译后的文本
+     */
+    getI18nMessage(key, fallback = '') {
+        if (window.i18nManager) {
+            return window.i18nManager.getMessage(key) || fallback;
+        }
+        return fallback;
     }
     
     // 录制相关方法
