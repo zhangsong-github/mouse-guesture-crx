@@ -1,6 +1,6 @@
 {
   "name": "mouse-gesture-extension",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "description": "A powerful mouse gesture extension with visual trail effects",
   "type": "module",
   "scripts": {
