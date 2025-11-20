@@ -111,7 +111,7 @@ class MotionTracker {
             }
 
             // 支持的语言映射
-            const supported = ['en', 'zh_CN', 'de', 'ja'];
+            const supported = ['en', 'zh_CN', 'de', 'ja', 'ru'];
 
             if (savedLocale && supported.includes(savedLocale)) {
                 this.selectedLocale = savedLocale;
@@ -121,6 +121,7 @@ class MotionTracker {
                 if (ui.startsWith('zh')) this.selectedLocale = 'zh_CN';
                 else if (ui.startsWith('de')) this.selectedLocale = 'de';
                 else if (ui.startsWith('ja')) this.selectedLocale = 'ja';
+                else if (ui.startsWith('ru')) this.selectedLocale = 'ru';
                 else this.selectedLocale = 'en';
             }
 

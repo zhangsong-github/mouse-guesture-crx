@@ -270,6 +270,9 @@
   "languageJapanese": {
     "message": "日本語"
   },
+  "languageRussian": {
+    "message": "Русский"
+  },
   
   "messageSaved": {
     "message": "Einstellungen gespeichert"

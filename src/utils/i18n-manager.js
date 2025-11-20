@@ -12,12 +12,13 @@
 class I18nManager {
     constructor() {
         this.currentLocale = 'en';
-        this.supportedLocales = ['en', 'zh_CN', 'de', 'ja'];
+        this.supportedLocales = ['en', 'zh_CN', 'de', 'ja', 'ru'];
         this.localeNames = {
             'en': 'English',
             'zh_CN': '简体中文',
             'de': 'Deutsch',
-            'ja': '日本語'
+            'ja': '日本語',
+            'ru': 'Русский'
         };
         this.messages = {};
         this.initialized = false;
@@ -71,6 +72,8 @@ class I18nManager {
             return 'de';
         } else if (browserLang.startsWith('ja')) {
             return 'ja';
+        } else if (browserLang.startsWith('ru')) {
+            return 'ru';
         } else {
             return 'en';
         }
@@ -207,7 +210,8 @@ class I18nManager {
             'en': 'en',
             'zh_CN': 'zh-CN',
             'de': 'de',
-            'ja': 'ja'
+            'ja': 'ja',
+            'ru': 'ru'
         };
         return mapping[locale] || 'en';
     }
