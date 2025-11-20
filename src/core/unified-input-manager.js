@@ -10,6 +10,9 @@ class UnifiedInputManager {
         this.touchSupported = 'ontouchstart' in window;
         this.pointerSupported = 'onpointerdown' in window;
         
+        // 追踪状态：记录当前正在追踪的按钮
+        this._trackingButton = undefined;
+        
         // 事件配置
         this.eventConfig = this._buildEventConfig();
         this.activeConfig = this._getActiveConfig();
@@ -304,6 +307,9 @@ class UnifiedInputManager {
         const unifiedEvent = this._createUnifiedEvent('start', coords, event);
         eventHandler.handleTrackingStart(unifiedEvent); // 重命名后的方法
         
+        // 存储启动按钮，用于后续验证
+        this._trackingButton = event.button;
+        
         if (this._shouldPreventDefault(event)) {
             event.preventDefault();
             event.stopPropagation();
@@ -315,6 +321,12 @@ class UnifiedInputManager {
      * @private
      */
     _handleMove(event, eventHandler) {
+        // 如果不是触摸事件，并且没有按下任何按钮（buttons === 0），则跳过
+        // 这可以防止干扰已经结束的拖动操作
+        if (this.inputType !== 'touch' && event.buttons === 0) {
+            return;
+        }
+        
         const coords = this._getEventCoordinates(event);
         if (!coords) return;
         
@@ -333,14 +345,43 @@ class UnifiedInputManager {
      * @private
      */
     _handleEnd(event, eventHandler) {
+        // 对于鼠标事件，只处理与追踪按钮匹配的事件
+        // 这样可以防止干扰左键拖动操作
+        if (this.inputType !== 'touch') {
+            // 如果有记录的追踪按钮，只处理该按钮的释放事件
+            if (this._trackingButton !== undefined && event.button !== this._trackingButton) {
+                console.log('🚫 _handleEnd: button mismatch, skipping', {
+                    eventButton: event.button,
+                    trackingButton: this._trackingButton,
+                    isRecording: eventHandler.isRecording
+                });
+                return;
+            }
+            
+            // 如果当前没有在记录，且不是有效的开始按钮，跳过
+            if (!eventHandler.isRecording && !this._isValidStartButton(event.button)) {
+                console.log('🚫 _handleEnd: not recording and not valid button, skipping', {
+                    button: event.button,
+                    isRecording: eventHandler.isRecording
+                });
+                return;
+            }
+        }
+        
         const coords = this._getEventCoordinates(event);
         const unifiedEvent = this._createUnifiedEvent('end', coords, event);
         
         eventHandler.handleTrackingEnd(unifiedEvent); // 重命名后的方法
         
-        if (this._shouldPreventDefault(event)) {
-            event.preventDefault();
-            event.stopPropagation();
+        // 清除追踪按钮记录
+        this._trackingButton = undefined;
+        
+        // 只在实际处理了手势追踪时才阻止默认行为
+        if (eventHandler.isRecording || eventHandler.shouldPreventContextMenu()) {
+            if (this._shouldPreventDefault(event)) {
+                event.preventDefault();
+                event.stopPropagation();
+            }
         }
     }
     
@@ -373,6 +414,20 @@ class UnifiedInputManager {
     }
     
     /**
+     * 验证按钮是否为有效的手势启动按钮
+     * @private
+     */
+    _isValidStartButton(button) {
+        if (this.platform === 'mac') {
+            // Mac: 右键(2) 或 Ctrl+左键(0)
+            return button === 2 || button === 0;
+        } else {
+            // Windows/Linux: 只有右键(2)
+            return button === 2;
+        }
+    }
+    
+    /**
      * 验证是否为有效的开始事件
      * @private
      */
@@ -402,9 +457,9 @@ class UnifiedInputManager {
                 valid = (event.button === 2) || (event.button === 0 && event.ctrlKey);
                 console.log('🍎 Mac validation:', valid, `(button: ${event.button}, ctrlKey: ${event.ctrlKey})`);
             } else {
-                // 临时修改：允许右键(2)，也允许中键(1)用于测试
-                valid = event.button === 2 || event.button === 1;
-                console.log('🖱️ Non-Mac validation:', valid, `(button: ${event.button}, expected: 2 or 1)`);
+                // Windows/Linux: 只允许右键(2)
+                valid = event.button === 2;
+                console.log('🖱️ Non-Mac validation:', valid, `(button: ${event.button}, expected: 2)`);
             }
             return valid;
         }
