@@ -138,10 +138,12 @@ async function initializeI18n() {
             // 创建语言选择器
             const container = document.getElementById('languageSelectorContainer');
             if (container) {
-                window.i18nManager.createLanguageSelector(container, (locale) => {
+                window.i18nManager.createLanguageSelector(container, async (locale) => {
                     console.log('Language changed to:', locale);
                     // 重新初始化页面文本（更新所有 data-i18n 元素）
                     window.i18nManager.initializePageTexts();
+                    // 重新加载扩展状态以更新手势名称的翻译
+                    await loadExtensionState();
                     // 重新渲染动态内容
                     renderUI();
                     showNotification(window.i18nManager.getMessage('messageSaved'), 'success');
@@ -506,21 +508,36 @@ function updateUnsupportedMessage() {
     const unsupportedReason = document.getElementById('unsupportedReason');
     if (unsupportedReason && !extensionState.currentPage.supported) {
         const url = extensionState.currentPage.url;
-        let reason = '当前页面不支持手势扩展';
+        let reason = getI18nMessage('unsupportedPageDefault', '当前页面不支持手势扩展');
+        let helpText = '';
         
         if (url.startsWith('chrome://')) {
-            reason = 'Chrome内置页面不支持手势扩展功能';
+            reason = getI18nMessage('unsupportedPageChrome', 'Chrome内置页面不支持手势扩展功能');
+            helpText = getI18nMessage('unsupportedPageChromeHelp', '浏览器安全策略限制，扩展无法在内置页面运行。');
         } else if (url.startsWith('chrome-extension://')) {
-            reason = '扩展管理页面不支持手势功能';
+            reason = getI18nMessage('unsupportedPageChromeExtension', '扩展管理页面不支持手势功能');
+            helpText = getI18nMessage('unsupportedPageChromeExtensionHelp', '扩展无法在其他扩展的页面中运行。');
         } else if (url.startsWith('edge://')) {
-            reason = 'Edge内置页面不支持手势扩展功能';
+            reason = getI18nMessage('unsupportedPageEdge', 'Edge内置页面不支持手势扩展功能');
+            helpText = getI18nMessage('unsupportedPageEdgeHelp', '浏览器安全策略限制，扩展无法在内置页面运行。');
         } else if (url.startsWith('about:')) {
-            reason = '浏览器系统页面不支持手势功能';
+            reason = getI18nMessage('unsupportedPageAbout', '浏览器系统页面不支持手势功能');
+            helpText = getI18nMessage('unsupportedPageAboutHelp', '浏览器安全策略限制，扩展无法在系统页面运行。');
         } else if (url.startsWith('file://')) {
-            reason = '本地文件页面暂不支持手势功能';
+            reason = getI18nMessage('unsupportedPageFile', '本地文件需要额外授权才能使用手势功能');
+            helpText = getI18nMessage('unsupportedPageFileHelp', 
+                '💡 <strong>解决方法：</strong><br>' +
+                '1. 打开 chrome://extensions/<br>' +
+                '2. 找到本扩展并点击"详细信息"<br>' +
+                '3. 启用"允许访问文件网址"选项<br>' +
+                '4. 刷新本页面即可使用手势功能'
+            );
         }
         
-        unsupportedReason.textContent = reason;
+        unsupportedReason.innerHTML = `
+            <div style="margin-bottom: 8px;">${reason}</div>
+            ${helpText ? `<div class="nes-text is-disabled" style="font-size: 11px; line-height: 1.6;">${helpText}</div>` : ''}
+        `;
     }
 }
 

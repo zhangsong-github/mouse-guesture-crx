@@ -390,5 +390,39 @@
   },
   "processingFailed": {
     "message": "処理に失敗しました"
+  },
+  
+  "unsupportedPageDefault": {
+    "message": "現在のページはジェスチャー拡張機能をサポートしていません"
+  },
+  "unsupportedPageChrome": {
+    "message": "Chrome内蔵ページはジェスチャー拡張機能をサポートしていません"
+  },
+  "unsupportedPageChromeHelp": {
+    "message": "ブラウザのセキュリティポリシーにより、拡張機能は内蔵ページで実行できません。"
+  },
+  "unsupportedPageChromeExtension": {
+    "message": "拡張機能管理ページはジェスチャー機能をサポートしていません"
+  },
+  "unsupportedPageChromeExtensionHelp": {
+    "message": "拡張機能は他の拡張機能のページで実行できません。"
+  },
+  "unsupportedPageEdge": {
+    "message": "Edge内蔵ページはジェスチャー拡張機能をサポートしていません"
+  },
+  "unsupportedPageEdgeHelp": {
+    "message": "ブラウザのセキュリティポリシーにより、拡張機能は内蔵ページで実行できません。"
+  },
+  "unsupportedPageAbout": {
+    "message": "ブラウザのシステムページはジェスチャー機能をサポートしていません"
+  },
+  "unsupportedPageAboutHelp": {
+    "message": "ブラウザのセキュリティポリシーにより、拡張機能はシステムページで実行できません。"
+  },
+  "unsupportedPageFile": {
+    "message": "ローカルファイルでジェスチャー機能を使用するには追加の認証が必要です"
+  },
+  "unsupportedPageFileHelp": {
+    "message": "💡 <strong>解決方法：</strong><br>1. chrome://extensions/ を開く<br>2. この拡張機能を見つけて「詳細」をクリック<br>3. 「ファイルのURLへのアクセスを許可する」オプションを有効にする<br>4. このページを更新してジェスチャー機能を使用する"
   }
 }

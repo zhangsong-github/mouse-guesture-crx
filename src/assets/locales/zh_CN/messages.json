@@ -390,5 +390,39 @@
   },
   "processingFailed": {
     "message": "处理失败"
+  },
+  
+  "unsupportedPageDefault": {
+    "message": "当前页面不支持手势扩展"
+  },
+  "unsupportedPageChrome": {
+    "message": "Chrome内置页面不支持手势扩展功能"
+  },
+  "unsupportedPageChromeHelp": {
+    "message": "浏览器安全策略限制，扩展无法在内置页面运行。"
+  },
+  "unsupportedPageChromeExtension": {
+    "message": "扩展管理页面不支持手势功能"
+  },
+  "unsupportedPageChromeExtensionHelp": {
+    "message": "扩展无法在其他扩展的页面中运行。"
+  },
+  "unsupportedPageEdge": {
+    "message": "Edge内置页面不支持手势扩展功能"
+  },
+  "unsupportedPageEdgeHelp": {
+    "message": "浏览器安全策略限制，扩展无法在内置页面运行。"
+  },
+  "unsupportedPageAbout": {
+    "message": "浏览器系统页面不支持手势功能"
+  },
+  "unsupportedPageAboutHelp": {
+    "message": "浏览器安全策略限制，扩展无法在系统页面运行。"
+  },
+  "unsupportedPageFile": {
+    "message": "本地文件需要额外授权才能使用手势功能"
+  },
+  "unsupportedPageFileHelp": {
+    "message": "💡 <strong>解决方法：</strong><br>1. 打开 chrome://extensions/<br>2. 找到本扩展并点击\"详细信息\"<br>3. 启用\"允许访问文件网址\"选项<br>4. 刷新本页面即可使用手势功能"
   }
 }

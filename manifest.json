@@ -39,7 +39,7 @@
   
   "content_scripts": [
     {
-      "matches": ["*://*/*"],
+      "matches": ["*://*/*", "file:///*"],
       "js": [
         "src/utils/coordinate-utils.js",
         "src/utils/dom-utils.js", 
@@ -53,7 +53,8 @@
       ],
       "css": ["src/assets/styles/content.css"],
       "run_at": "document_start",
-      "all_frames": true
+      "all_frames": true,
+      "match_about_blank": false
     }
   ],
   
@@ -67,7 +68,7 @@
   "web_accessible_resources": [
     {
       "resources": ["src/*", "content/*", "sidepanel/*"],
-      "matches": ["*://*/*"]
+      "matches": ["*://*/*", "file:///*"]
     }
   ]
 }

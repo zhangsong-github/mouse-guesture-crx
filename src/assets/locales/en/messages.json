@@ -390,5 +390,39 @@
   },
   "processingFailed": {
     "message": "Processing failed"
+  },
+  
+  "unsupportedPageDefault": {
+    "message": "Current page does not support gesture extension"
+  },
+  "unsupportedPageChrome": {
+    "message": "Chrome built-in pages do not support gesture extension"
+  },
+  "unsupportedPageChromeHelp": {
+    "message": "Browser security policy restricts extensions from running on built-in pages."
+  },
+  "unsupportedPageChromeExtension": {
+    "message": "Extension management pages do not support gesture functionality"
+  },
+  "unsupportedPageChromeExtensionHelp": {
+    "message": "Extensions cannot run on other extension pages."
+  },
+  "unsupportedPageEdge": {
+    "message": "Edge built-in pages do not support gesture extension"
+  },
+  "unsupportedPageEdgeHelp": {
+    "message": "Browser security policy restricts extensions from running on built-in pages."
+  },
+  "unsupportedPageAbout": {
+    "message": "Browser system pages do not support gesture functionality"
+  },
+  "unsupportedPageAboutHelp": {
+    "message": "Browser security policy restricts extensions from running on system pages."
+  },
+  "unsupportedPageFile": {
+    "message": "Local files require additional authorization to use gesture functionality"
+  },
+  "unsupportedPageFileHelp": {
+    "message": "💡 <strong>Solution:</strong><br>1. Open chrome://extensions/<br>2. Find this extension and click \"Details\"<br>3. Enable \"Allow access to file URLs\" option<br>4. Refresh this page to use gesture functionality"
   }
 }
