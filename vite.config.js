@@ -1,6 +1,7 @@
 import { defineConfig } from 'vite';
 import { resolve } from 'path';
 import { viteStaticCopy } from 'vite-plugin-static-copy';
+import PlatformConfigManager from './scripts/platform-config.js';
 
 // 自定义插件：将每个输出文件包裹在 IIFE 中
 function wrapInIIFE() {
@@ -21,6 +22,12 @@ function wrapInIIFE() {
 
 export default defineConfig(({ mode }) => {
   const isDev = mode === 'development';
+  
+  // 获取构建平台
+  const platformManager = new PlatformConfigManager();
+  const platform = platformManager.getCurrentPlatform();
+  
+  console.log(`🔧 构建模式: ${mode}, 目标平台: ${platform.toUpperCase()}`);
   
   return {
     // 禁用 HMR，因为这是扩展项目
@@ -128,26 +135,27 @@ export default defineConfig(({ mode }) => {
       }
     },
     
-    // CSS 处理配置
-    css: {
-      // CSS 压缩
-      postcss: {
-        plugins: []
-      }
-    },
-    
     // 插件配置
     plugins: [
+      // 自定义插件：在构建完成后生成 manifest.json
+      {
+        name: 'generate-manifest',
+        closeBundle() {
+          // 在所有文件写入完成后生成 manifest
+          const platformManager = new PlatformConfigManager();
+          try {
+            platformManager.prepareManifest();
+          } catch (error) {
+            console.error('❌ 生成manifest失败:', error);
+          }
+        }
+      },
       // 自定义插件：将代码包裹在 IIFE 中
       wrapInIIFE(),
       // 静态文件复制插件
       viteStaticCopy({
         targets: [
-          // 复制manifest.json
-          {
-            src: 'manifest.json',
-            dest: '.'
-          },
+          // manifest.json 由 platform-config.js 在构建前生成，无需复制
           // 复制图标文件夹
           {
             src: 'src/assets/icons/**/*',
@@ -175,6 +183,11 @@ export default defineConfig(({ mode }) => {
           {
             src: 'src/js/**/*',
             dest: 'src/js'
+          },
+          // 复制 browser-polyfill.js（不通过 Vite 构建，避免 ES module 包裹问题）
+          {
+            src: 'src/utils/browser-polyfill.js',
+            dest: 'src/utils'
           },
           // 复制 i18n-manager.js（不通过 Vite 构建，避免 ES module 包裹问题）
           {

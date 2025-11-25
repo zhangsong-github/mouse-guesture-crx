@@ -1,6 +1,6 @@
 # Mouse Gesture Pilot 🖱️
 
-一个功能强大的 Chrome 鼠标手势扩展，支持可视化轨迹效果和多语言界面。
+一个功能强大的鼠标手势扩展，支持 Chrome 和 Microsoft Edge，具备可视化轨迹效果和多语言界面。
 
 ## 🎥 视频演示
 
@@ -9,8 +9,9 @@
 📺 [**点击观看完整演示视频**](https://www.youtube.com/watch?v=j6URBDnqozA)
 
 [![Chrome Web Store](https://img.shields.io/badge/Chrome-Web%20Store-blue)](https://chrome.google.com/webstore)
+[![Edge Add-ons](https://img.shields.io/badge/Edge-Add--ons-0078D7)](https://microsoftedge.microsoft.com/addons)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![Version](https://img.shields.io/badge/version-1.1.1-green.svg)](https://github.com/zhangsong-github/mouse-guesture-crx)
+[![Version](https://img.shields.io/badge/version-1.1.4-green.svg)](https://github.com/zhangsong-github/mouse-guesture-crx)
 
 ## ✨ 特性
 
@@ -145,8 +146,15 @@ Chrome浏览器 → 右上角⋮菜单 → 扩展程序 → 管理扩展程序 �
 
 3. **构建扩展**
    ```bash
-   # 开发模式（包含 source maps）
-   npm run build:dev
+   # Chrome版本
+   npm run build:chrome
+   
+   # Edge版本
+   npm run build:edge
+   
+   # 开发模式（监听文件变化）
+   npm run dev
+   ```
    
    # 生产模式（压缩优化）
    npm run build:prod
@@ -250,24 +258,19 @@ chrome-guesture-extension/
 # 开发模式（监听文件变化）
 npm run dev
 
-# 开发构建
-npm run build:dev
-
-# 生产构建
-npm run build:prod
+# 构建生产版本
+npm run build:chrome
 
 # 清理构建文件
 npm run clean
-
-# 验证配置
-npm run validate
 ```
 
 ### 技术栈
-- **Manifest V3** - 最新 Chrome 扩展标准
+- **Manifest V3** - 最新扩展标准
 - **Vanilla JavaScript** - 无框架依赖
 - **Vite** - 现代化构建工具
 - **NES.css** - 像素风格 UI 库
+- **Browser Polyfill** - 跨浏览器兼容层
 
 ## 📦 构建
 

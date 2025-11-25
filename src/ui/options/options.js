@@ -339,8 +339,13 @@ class MotionOptions {
         const rateBtn = document.getElementById('rateBtn');
         if (rateBtn) {
             rateBtn.addEventListener('click', () => {
+                // 打开对应商店的评分页面（自动识别Chrome/Edge）
                 const extensionId = chrome.runtime.id;
-                const reviewUrl = `https://chrome.google.com/webstore/detail/${extensionId}/reviews`;
+                const isEdge = navigator.userAgent.includes('Edg/');
+                const reviewUrl = isEdge 
+                    ? `https://microsoftedge.microsoft.com/addons/detail/${extensionId}`
+                    : `https://chrome.google.com/webstore/detail/${extensionId}/reviews`;
+                
                 chrome.tabs.create({ url: reviewUrl });
                 this.hideRatingBanner();
             });

@@ -1,10 +1,9 @@
 {
   "manifest_version": 3,
   "name": "__MSG_extName__",
-  "version": "1.1.4",
+  "version": "1.2.1",
   "description": "__MSG_extDescription__",
   "default_locale": "en",
-  
   "permissions": [
     "storage",
     "activeTab",
@@ -12,11 +11,9 @@
     "sessions",
     "sidePanel"
   ],
-  
   "host_permissions": [
     "*://*/*"
   ],
-  
   "action": {
     "default_title": "Mouse Gesture Settings",
     "default_icon": {
@@ -26,23 +23,23 @@
       "128": "src/assets/icons/icon128.png"
     }
   },
-  
   "options_page": "src/ui/options/options.html",
-  
   "side_panel": {
     "default_path": "src/ui/sidepanel/sidepanel.html"
   },
-  
   "background": {
     "service_worker": "src/background/background-main.js"
   },
-  
   "content_scripts": [
     {
-      "matches": ["*://*/*", "file:///*"],
+      "matches": [
+        "*://*/*",
+        "file:///*"
+      ],
       "js": [
+        "src/utils/browser-polyfill.js",
         "src/utils/coordinate-utils.js",
-        "src/utils/dom-utils.js", 
+        "src/utils/dom-utils.js",
         "src/utils/message-utils.js",
         "src/utils/pattern-analyzer.js",
         "src/core/path-renderer.js",
@@ -51,24 +48,31 @@
         "src/ui/components/direction-visualizer.js",
         "src/content/content-main.js"
       ],
-      "css": ["src/assets/styles/content.css"],
+      "css": [
+        "src/assets/styles/content.css"
+      ],
       "run_at": "document_start",
       "all_frames": true,
       "match_about_blank": false
     }
   ],
-  
   "icons": {
     "16": "src/assets/icons/icon16.png",
-    "32": "src/assets/icons/icon32.png", 
+    "32": "src/assets/icons/icon32.png",
     "48": "src/assets/icons/icon48.png",
     "128": "src/assets/icons/icon128.png"
   },
-  
   "web_accessible_resources": [
     {
-      "resources": ["src/*", "content/*", "sidepanel/*"],
-      "matches": ["*://*/*", "file:///*"]
+      "resources": [
+        "src/*",
+        "content/*",
+        "sidepanel/*"
+      ],
+      "matches": [
+        "*://*/*",
+        "file:///*"
+      ]
     }
   ]
 }

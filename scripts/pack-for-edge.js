@@ -1,5 +1,5 @@
-// Chrome Web Store 发布打包脚本
-// 用于生成可上传到 Chrome Web Store 的 ZIP 包
+// Edge Add-ons 发布打包脚本
+// 用于生成可上传到 Edge Add-ons 的 ZIP 包
 
 import fs from 'fs';
 import path from 'path';
@@ -9,7 +9,7 @@ import archiver from 'archiver';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-class ChromeStorePackager {
+class EdgeStorePackager {
   constructor() {
     this.rootDir = path.resolve(__dirname, '..');
     this.distDir = path.join(this.rootDir, 'dist');
@@ -33,21 +33,24 @@ class ChromeStorePackager {
     return '1.0.0';
   }
 
-  // 打包成适合 Chrome Web Store 的 ZIP 文件
-  async packageForStore() {
-    console.log('📦 开始打包 Chrome Web Store 发布包...');
+  // 打包成适合 Edge Add-ons 的 ZIP 文件
+  async packageForEdge() {
+    console.log('📦 开始打包 Edge Add-ons 发布包...');
     
     // 确保dist目录存在
     if (!fs.existsSync(this.distDir)) {
-      console.error('❌ dist 目录不存在，请先运行: npm run build:prod');
+      console.error('❌ dist 目录不存在，请先运行: npm run build:edge');
       process.exit(1);
     }
+
+    // 验证manifest是否为Edge平台（通过构建日志确认，不再依赖 manifest 字段）
+    console.log('ℹ️  提示：请确保使用 npm run build:edge 构建了 Edge 版本');
 
     // 确保packages目录存在
     this.ensureDir(this.packageDir);
 
     const version = this.getVersion();
-    const zipName = `mouse-gesture-chrome-v${version}.zip`;
+    const zipName = `mouse-gesture-edge-v${version}.zip`;
     const zipPath = path.join(this.packageDir, zipName);
 
     // 如果文件已存在，删除旧文件
@@ -88,13 +91,9 @@ class ChromeStorePackager {
 
       archive.pipe(output);
 
-      // 添加dist目录下的所有文件（这是构建后的代码）
+      // 添加dist目录下的所有文件
       console.log('📂 正在添加构建文件...');
       archive.directory(this.distDir, false);
-
-      // 注意: 不要将 private_key.pem 添加到 Chrome Web Store 的包中
-      // Chrome Web Store 会为你的扩展自动生成和管理密钥
-      // private_key.pem 仅用于本地开发时生成 .crx 文件
 
       console.log('🔄 正在压缩文件...');
       archive.finalize();
@@ -133,7 +132,7 @@ class ChromeStorePackager {
     console.log(`   版本: ${manifest.version}`);
     console.log(`   描述: ${manifest.description}`);
     
-    // Chrome Web Store 的特殊要求检查
+    // Edge Add-ons 的特殊要求检查
     if (!manifest.name || manifest.name.length < 3) {
       console.error('❌ 扩展名称太短（至少3个字符）');
       return false;
@@ -150,8 +149,13 @@ class ChromeStorePackager {
     }
     
     if (!manifest.icons || !manifest.icons['128']) {
-      console.error('❌ 缺少128x128图标（Chrome Web Store必需）');
+      console.error('❌ 缺少128x128图标（Edge Add-ons必需）');
       return false;
+    }
+
+    // Edge特定检查
+    if (manifest.key) {
+      console.warn('⚠️  警告: Edge Add-ons不需要key字段，建议移除');
     }
 
     console.log('✅ 扩展包验证通过');
@@ -160,7 +164,7 @@ class ChromeStorePackager {
 
   // 主打包流程
   async build() {
-    console.log('🚀 Chrome Web Store 打包流程开始...');
+    console.log('🚀 Edge Add-ons 打包流程开始...');
     console.log('==========================================');
     console.log('');
     
@@ -173,9 +177,9 @@ class ChromeStorePackager {
       console.log('');
 
       // 打包扩展
-      await this.packageForStore();
+      await this.packageForEdge();
 
-      console.log('🎉 CHROME 打包完成！');
+      console.log('🎉 EDGE 打包完成！');
       
     } catch (error) {
       console.error('❌ 打包失败:', error);
@@ -185,5 +189,5 @@ class ChromeStorePackager {
 }
 
 // 运行打包
-const packager = new ChromeStorePackager();
+const packager = new EdgeStorePackager();
 packager.build();
