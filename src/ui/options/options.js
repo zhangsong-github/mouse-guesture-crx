@@ -39,6 +39,9 @@ class MotionOptions {
         this.bindEvents();
         this.render();
         this.setupMessageListener();
+        
+        // 检查评分横幅可见性
+        await this.checkRatingVisibility();
     }
     
     async initializeI18n() {
@@ -332,6 +335,24 @@ class MotionOptions {
     }
     
     bindEvents() {
+        // 评分按钮
+        const rateBtn = document.getElementById('rateBtn');
+        if (rateBtn) {
+            rateBtn.addEventListener('click', () => {
+                const extensionId = chrome.runtime.id;
+                const reviewUrl = `https://chrome.google.com/webstore/detail/${extensionId}/reviews`;
+                chrome.tabs.create({ url: reviewUrl });
+                this.hideRatingBanner();
+            });
+        }
+        
+        const rateLaterBtn = document.getElementById('rateLaterBtn');
+        if (rateLaterBtn) {
+            rateLaterBtn.addEventListener('click', () => {
+                this.hideRatingBanner();
+            });
+        }
+        
         // 开始录制按钮
         const addGestureBtn = document.getElementById('addGestureBtn');
         if (addGestureBtn) {
@@ -1315,6 +1336,49 @@ class MotionOptions {
                 message.remove();
             }
         }, 3000);
+    }
+    
+    hideRatingBanner() {
+        const ratingBanner = document.querySelector('.rating-banner');
+        if (ratingBanner) {
+            ratingBanner.classList.add('hidden');
+            // 存储用户选择，避免再次显示（30天内）
+            chrome.storage.local.set({
+                ratingDismissedAt: Date.now()
+            });
+        }
+    }
+    
+    async checkRatingVisibility() {
+        try {
+            const data = await chrome.storage.local.get(['ratingDismissedAt', 'installTime']);
+            const ratingBanner = document.querySelector('.rating-banner');
+            
+            if (!ratingBanner) return;
+            
+            // 如果用户30天内点击过"稍后再说"或"评分"，则不显示
+            if (data.ratingDismissedAt) {
+                const daysSinceDismissed = (Date.now() - data.ratingDismissedAt) / (1000 * 60 * 60 * 24);
+                if (daysSinceDismissed < 30) {
+                    ratingBanner.classList.add('hidden');
+                    return;
+                }
+            }
+            
+            // 如果安装时间少于3天，不显示评分提示
+            if (data.installTime) {
+                const daysSinceInstall = (Date.now() - data.installTime) / (1000 * 60 * 60 * 24);
+                if (daysSinceInstall < 3) {
+                    ratingBanner.classList.add('hidden');
+                    return;
+                }
+            }
+            
+            // 显示评分横幅
+            ratingBanner.classList.remove('hidden');
+        } catch (error) {
+            console.error('检查评分可见性失败:', error);
+        }
     }
 }
 

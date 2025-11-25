@@ -424,5 +424,21 @@
   },
   "unsupportedPageFileHelp": {
     "message": "💡 <strong>Lösung:</strong><br>1. Öffnen Sie chrome://extensions/<br>2. Finden Sie diese Erweiterung und klicken Sie auf \"Details\"<br>3. Aktivieren Sie die Option \"Zugriff auf Datei-URLs zulassen\"<br>4. Aktualisieren Sie diese Seite, um die Gestenfunktion zu nutzen"
+  },
+  
+  "rateExtension": {
+    "message": "Erweiterung bewerten"
+  },
+  "rateExtensionTitle": {
+    "message": "Gefällt Ihnen diese Erweiterung?"
+  },
+  "rateExtensionMessage": {
+    "message": "Ihre 5-Sterne-Bewertung hilft uns, mehr Benutzer zu erreichen und weiter zu verbessern! Es dauert nur einen Moment."
+  },
+  "rateNow": {
+    "message": "⭐ 5 Sterne geben"
+  },
+  "rateLater": {
+    "message": "Vielleicht später"
   }
 }

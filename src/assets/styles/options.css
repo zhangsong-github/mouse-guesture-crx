@@ -609,3 +609,109 @@ button span {
   vertical-align: middle;
 }
 
+/* 评分横幅样式 */
+.rating-banner {
+  background: linear-gradient(135deg, #2d1b4e 0%, #1a1a2e 100%) !important;
+  border: 4px solid var(--pixel-warning) !important;
+  margin: 32px auto 24px;
+  max-width: 1200px;
+  padding: 24px !important;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+}
+
+.rating-banner-content {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.rating-banner-icon {
+  font-size: 48px;
+  animation: rating-float 3s ease-in-out infinite;
+  flex-shrink: 0;
+}
+
+@keyframes rating-float {
+  0%, 100% {
+    transform: translateY(0) scale(1);
+    filter: drop-shadow(0 0 12px rgba(247, 213, 29, 0.6));
+  }
+  50% {
+    transform: translateY(-8px) scale(1.05);
+    filter: drop-shadow(0 0 20px rgba(247, 213, 29, 0.9));
+  }
+}
+
+.rating-banner-text {
+  flex: 1;
+  min-width: 250px;
+}
+
+.rating-banner-text h3 {
+  font-size: 12px;
+  margin-bottom: 8px;
+  text-shadow: 2px 2px 0px rgba(0, 0, 0, 0.5);
+}
+
+.rating-banner-text p {
+  font-size: 8px;
+  line-height: 1.6;
+  opacity: 0.9;
+  white-space: normal;
+  word-wrap: break-word;
+}
+
+.rating-banner-buttons {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.rating-banner-buttons .nes-btn {
+  font-size: 9px !important;
+  padding: 10px 20px !important;
+  white-space: nowrap;
+}
+
+.rating-banner.hidden {
+  display: none;
+}
+
+/* 响应式评分横幅 */
+@media (max-width: 768px) {
+  .rating-banner {
+    padding: 16px !important;
+  }
+  
+  .rating-banner-content {
+    flex-direction: column;
+    text-align: center;
+    gap: 16px;
+  }
+  
+  .rating-banner-icon {
+    font-size: 40px;
+  }
+  
+  .rating-banner-text h3 {
+    font-size: 10px;
+  }
+  
+  .rating-banner-text p {
+    font-size: 7px;
+  }
+  
+  .rating-banner-buttons {
+    flex-direction: column;
+    width: 100%;
+  }
+  
+  .rating-banner-buttons .nes-btn {
+    width: 100%;
+    font-size: 8px !important;
+  }
+}
+
+

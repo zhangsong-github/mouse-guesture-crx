@@ -424,5 +424,21 @@
   },
   "unsupportedPageFileHelp": {
     "message": "💡 <strong>解決方法：</strong><br>1. chrome://extensions/ を開く<br>2. この拡張機能を見つけて「詳細」をクリック<br>3. 「ファイルのURLへのアクセスを許可する」オプションを有効にする<br>4. このページを更新してジェスチャー機能を使用する"
+  },
+  
+  "rateExtension": {
+    "message": "拡張機能を評価"
+  },
+  "rateExtensionTitle": {
+    "message": "この拡張機能を気に入っていただけましたか？"
+  },
+  "rateExtensionMessage": {
+    "message": "あなたの5つ星のレビューは、より多くのユーザーにリーチし、改善を続けるのに役立ちます！ほんの一瞬です。"
+  },
+  "rateNow": {
+    "message": "⭐ 5つ星を付ける"
+  },
+  "rateLater": {
+    "message": "後で"
   }
 }

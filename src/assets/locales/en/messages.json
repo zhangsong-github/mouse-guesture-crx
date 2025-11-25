@@ -424,5 +424,21 @@
   },
   "unsupportedPageFileHelp": {
     "message": "💡 <strong>Solution:</strong><br>1. Open chrome://extensions/<br>2. Find this extension and click \"Details\"<br>3. Enable \"Allow access to file URLs\" option<br>4. Refresh this page to use gesture functionality"
+  },
+  
+  "rateExtension": {
+    "message": "Rate This Extension"
+  },
+  "rateExtensionTitle": {
+    "message": "Enjoying Mouse Gestures?"
+  },
+  "rateExtensionMessage": {
+    "message": "Your 5-star review helps us reach more users and keep improving! It takes just a moment."
+  },
+  "rateNow": {
+    "message": "⭐ Rate 5 Stars"
+  },
+  "rateLater": {
+    "message": "Maybe Later"
   }
 }

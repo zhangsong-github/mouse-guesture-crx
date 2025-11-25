@@ -536,3 +536,87 @@ input:checked + .slider:before {
   overflow-wrap: break-word;
 }
 
+/* 评分引导区域样式 */
+.rating-section {
+  background: linear-gradient(135deg, #2d1b4e 0%, #1a1a2e 100%) !important;
+  border-color: var(--pixel-warning) !important;
+  border-width: 3px !important;
+  margin-bottom: 16px;
+}
+
+.rating-content {
+  text-align: center;
+  padding: 16px 8px;
+}
+
+.rating-icon {
+  font-size: 36px;
+  margin-bottom: 12px;
+  animation: rating-pulse 2s ease-in-out infinite;
+}
+
+@keyframes rating-pulse {
+  0%, 100% {
+    transform: scale(1);
+    filter: drop-shadow(0 0 8px rgba(247, 213, 29, 0.5));
+  }
+  50% {
+    transform: scale(1.1);
+    filter: drop-shadow(0 0 16px rgba(247, 213, 29, 0.8));
+  }
+}
+
+.rating-content h4 {
+  font-size: 10px;
+  margin-bottom: 8px;
+  color: var(--pixel-warning);
+}
+
+.rating-message {
+  font-size: 7px;
+  line-height: 1.6;
+  margin-bottom: 16px;
+  opacity: 0.9;
+  white-space: normal;
+  word-wrap: break-word;
+}
+
+.rating-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  align-items: stretch;
+}
+
+.rating-buttons .nes-btn {
+  width: 100%;
+  font-size: 9px !important;
+  padding: 10px 16px !important;
+  min-height: 36px;
+}
+
+.rating-section.hidden {
+  display: none;
+}
+
+/* 响应式调整评分区域 */
+@media (max-width: 400px) {
+  .rating-icon {
+    font-size: 28px;
+  }
+  
+  .rating-content h4 {
+    font-size: 9px;
+  }
+  
+  .rating-message {
+    font-size: 6px;
+  }
+  
+  .rating-buttons .nes-btn {
+    font-size: 7px !important;
+    padding: 8px 12px !important;
+  }
+}
+
+

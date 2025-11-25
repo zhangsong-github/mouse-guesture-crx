@@ -113,6 +113,9 @@ async function initialize() {
     // 更新页面信息
     await updateCurrentPageInfo();
     
+    // 检查评分区域可见性
+    await checkRatingVisibility();
+    
     // 渲染界面
     renderUI();
     
@@ -246,6 +249,18 @@ function setupEventListeners() {
                 // 手动触发change事件
                 elements.enableToggle.dispatchEvent(new Event('change'));
             }
+        },
+        'rateBtn': () => {
+            // 打开Chrome商店评分页面
+            const extensionId = chrome.runtime.id;
+            const reviewUrl = `https://chrome.google.com/webstore/detail/${extensionId}/reviews`;
+            chrome.tabs.create({ url: reviewUrl });
+            // 隐藏评分区域并记录用户已点击
+            hideRatingSection();
+        },
+        'rateLaterBtn': () => {
+            // 暂时隐藏评分区域
+            hideRatingSection();
         }
     };
     
@@ -990,3 +1005,48 @@ window.sidePanelDebug = {
     updateCurrentPageInfo,
     executeQuickAction
 };
+
+// 隐藏评分区域的函数
+function hideRatingSection() {
+    const ratingSection = document.getElementById('ratingSection');
+    if (ratingSection) {
+        ratingSection.classList.add('hidden');
+        // 存储用户选择，避免再次显示（30天内）
+        chrome.storage.local.set({
+            ratingDismissedAt: Date.now()
+        });
+    }
+}
+
+// 检查是否应该显示评分区域
+async function checkRatingVisibility() {
+    try {
+        const data = await chrome.storage.local.get(['ratingDismissedAt', 'installTime']);
+        const ratingSection = document.getElementById('ratingSection');
+        
+        if (!ratingSection) return;
+        
+        // 如果用户30天内点击过"稍后再说"或"评分"，则不显示
+        if (data.ratingDismissedAt) {
+            const daysSinceDismissed = (Date.now() - data.ratingDismissedAt) / (1000 * 60 * 60 * 24);
+            if (daysSinceDismissed < 30) {
+                ratingSection.classList.add('hidden');
+                return;
+            }
+        }
+        
+        // 如果安装时间少于3天，不显示评分提示
+        if (data.installTime) {
+            const daysSinceInstall = (Date.now() - data.installTime) / (1000 * 60 * 60 * 24);
+            if (daysSinceInstall < 3) {
+                ratingSection.classList.add('hidden');
+                return;
+            }
+        }
+        
+        // 显示评分区域
+        ratingSection.classList.remove('hidden');
+    } catch (error) {
+        console.error('检查评分可见性失败:', error);
+    }
+}
